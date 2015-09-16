@@ -13,8 +13,8 @@ class custom_bdist_dumb(bdist_dumb):
             cmd.install_lib = '/'
         return cmd
 
-Main.create_version_file("Version.py", "python")
-version = Main.get_version()
+Main.create_version_file(git_directory=".", output_file="Version.py", lang="python")
+version = Main.get_version(git_directory=".")
 
 setup(name='git-version-builder',
       cmdclass = {'bdist_dumb': custom_bdist_dumb},

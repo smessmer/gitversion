@@ -2,12 +2,12 @@ import VersionInfoReader
 import VersionInfoOutputter
 
 
-def get_version():
-    return VersionInfoReader.from_git()
+def get_version(git_directory):
+    return VersionInfoReader.from_git(git_directory)
 
 
-def create_version_file(output_file, lang):
-    version_info = get_version()
+def create_version_file(git_directory, output_file, lang):
+    version_info = get_version(git_directory)
     output = _output(version_info, lang=lang)
     _write_to_file(output_file, output)
 

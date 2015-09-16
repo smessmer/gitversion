@@ -10,10 +10,11 @@ def main():
     parser = argparse.ArgumentParser(description="Create a source file containing git version information.")
     parser.add_argument('--version', action='version', version=Version.VERSION_STRING)
     parser.add_argument('--lang', choices=['cpp', 'python'], required=True)
+    parser.add_argument('--dir', default='.')
     parser.add_argument('file')
     args = parser.parse_args()
 
-    Main.create_version_file(output_file=args.file, lang=args.lang)
+    Main.create_version_file(git_directory=args.dir, output_file=args.file, lang=args.lang)
 
 
 if __name__ == '__main__':
