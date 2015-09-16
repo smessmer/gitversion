@@ -1,5 +1,6 @@
 import unittest
-import VersionInfo
+
+from src.gitversionbuilder import VersionInfo
 
 
 class VersionInfoTest(unittest.TestCase):

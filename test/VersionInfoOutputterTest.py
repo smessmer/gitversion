@@ -1,25 +1,39 @@
 import unittest
+
 import VersionInfo
-import VersionInfoOutputter
+from src.gitversionbuilder import VersionInfoOutputter
 
 
 class VersionInfoOutputterTest(unittest.TestCase):
     def test_output_cpp(self):
         expected = """
-                    #pragma once
-                    #ifndef __GITVERSIONBUILDER__VERSION_H__
-                    #define __GITVERSIONBUILDER__VERSION_H__
+                #pragma once
+                #ifndef __GITVERSIONBUILDER__VERSION_H__
+                #define __GITVERSIONBUILDER__VERSION_H__
 
-                    namespace version {
-                        constexpr const char *versionString = "v1.6-2-g230a";
-                        constexpr const char *tagName = "v1.6";
-                        constexpr const unsigned int commitsSinceTag = 2;
-                        constexpr const char *gitCommitId = "230a";
-                    }
+                namespace version {
+                    constexpr const char *versionString = "v1.6-2-g230a";
+                    constexpr const char *tagName = "v1.6";
+                    constexpr const unsigned int commitsSinceTag = 2;
+                    constexpr const char *gitCommitId = "230a";
+                }
 
-                    #endif
-                """
+                #endif
+            """
         actual = VersionInfoOutputter.to_cpp(VersionInfo.VersionInfo("v1.6", 2, "230a"))
+        self.assertCodeEqual(expected, actual)
+
+    def test_output_python(self):
+        expected = """
+                VERSION_STRING = "v1.6-2-g230a"
+                TAG_NAME = "v1.6"
+                COMMITS_SINCE_TAG = 2
+                GIT_COMMIT_ID = "230a"
+            """
+        actual = VersionInfoOutputter.to_python(VersionInfo.VersionInfo("v1.6", 2, "230a"))
+        self.assertCodeEqual(expected, actual)
+
+    def assertCodeEqual(self, expected, actual):
         self.assertEqual(self._normalize(expected), self._normalize(actual))
 
     def _normalize(self, string):
