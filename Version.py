@@ -4,7 +4,7 @@
 # DO NOT MODIFY!
 # ---------------------------------------------------
 
-VERSION_STRING = "v0.9-0-gf576"
-TAG_NAME = "v0.9"
+VERSION_STRING = "dummy"
+TAG_NAME = "dummy"
 COMMITS_SINCE_TAG = 0
-GIT_COMMIT_ID = "f576"
+GIT_COMMIT_ID = "dummy"
