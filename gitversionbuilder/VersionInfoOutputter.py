@@ -9,10 +9,10 @@ _cpp_format = """
 #define __GITVERSIONBUILDER__VERSION_H__
 
 namespace version {
-  constexpr const char *versionString = "%s";
-  constexpr const char *tagName = "%s";
-  constexpr const unsigned int commitsSinceTag = %d;
-  constexpr const char *gitCommitId = "%s";
+  constexpr const char *VERSION_STRING = "%s";
+  constexpr const char *TAG_NAME = "%s";
+  constexpr const unsigned int COMMITS_SINCE_TAG = %d;
+  constexpr const char *GIT_COMMIT_ID = "%s";
 }
 
 #endif

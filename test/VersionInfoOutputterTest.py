@@ -17,10 +17,10 @@ class VersionInfoOutputterTest(unittest.TestCase):
                 #define __GITVERSIONBUILDER__VERSION_H__
 
                 namespace version {
-                    constexpr const char *versionString = "v1.6-2-g230a";
-                    constexpr const char *tagName = "v1.6";
-                    constexpr const unsigned int commitsSinceTag = 2;
-                    constexpr const char *gitCommitId = "230a";
+                    constexpr const char *VERSION_STRING = "v1.6-2-g230a";
+                    constexpr const char *TAG_NAME = "v1.6";
+                    constexpr const unsigned int COMMITS_SINCE_TAG = 2;
+                    constexpr const char *GIT_COMMIT_ID = "230a";
                 }
 
                 #endif
