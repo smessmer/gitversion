@@ -2,8 +2,12 @@
 
 import argparse
 
-import Version
 from gitversionbuilder import main
+
+try:
+    Version = __import__("Version")
+except ImportError:
+    Version = __import__("DummyVersion")
 
 
 if __name__ == '__main__':
