@@ -4,7 +4,7 @@
 # DO NOT MODIFY!
 # ---------------------------------------------------
 
-VERSION_STRING = "heads/develop-0-gc107328"
+VERSION_STRING = "heads/develop-0-g1a7bec3"
 TAG_NAME = "heads/develop"
 COMMITS_SINCE_TAG = 0
-GIT_COMMIT_ID = "c107328"
+GIT_COMMIT_ID = "1a7bec3"
