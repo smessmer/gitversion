@@ -1,9 +1,9 @@
-import VersionInfoReader
-import VersionInfoOutputter
+import versioninforeader
+import versioninfooutputter
 
 
 def get_version(git_directory):
-    return VersionInfoReader.from_git(git_directory)
+    return versioninforeader.from_git(git_directory)
 
 
 def create_version_file(git_directory, output_file, lang):
@@ -14,9 +14,9 @@ def create_version_file(git_directory, output_file, lang):
 
 def _output(version_info, lang):
     if lang == "cpp":
-        return VersionInfoOutputter.to_cpp(version_info)
+        return versioninfooutputter.to_cpp(version_info)
     elif lang == "python":
-        return VersionInfoOutputter.to_python(version_info)
+        return versioninfooutputter.to_python(version_info)
     else:
         raise ValueError("Unknown language")
 

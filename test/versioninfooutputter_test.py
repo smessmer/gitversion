@@ -1,10 +1,10 @@
 import unittest
 
-from gitversionbuilder import VersionInfo
-from gitversionbuilder import VersionInfoOutputter
+from gitversionbuilder import versioninfo
+from gitversionbuilder import versioninfooutputter
+import test_utils
 
-
-class VersionInfoOutputterTest(unittest.TestCase):
+class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
     def test_output_cpp(self):
         expected = """
                 // ---------------------------------------------------
@@ -25,7 +25,7 @@ class VersionInfoOutputterTest(unittest.TestCase):
 
                 #endif
             """
-        actual = VersionInfoOutputter.to_cpp(VersionInfo.VersionInfo("v1.6", 2, "230a"))
+        actual = versioninfooutputter.to_cpp(versioninfo.VersionInfo("v1.6", 2, "230a", True))
         self.assertCodeEqual(expected, actual)
 
     def test_output_python(self):
@@ -40,21 +40,8 @@ class VersionInfoOutputterTest(unittest.TestCase):
                 COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"
             """
-        actual = VersionInfoOutputter.to_python(VersionInfo.VersionInfo("v1.6", 2, "230a"))
+        actual = versioninfooutputter.to_python(versioninfo.VersionInfo("v1.6", 2, "230a", True))
         self.assertCodeEqual(expected, actual)
-
-    def assertCodeEqual(self, expected, actual):
-        self.assertEqual(self._normalize(expected), self._normalize(actual))
-
-    def _normalize(self, string):
-        lines = string.splitlines()
-        normalized_lines = map(self._normalize_line, lines)
-        without_empty_lines = filter(None, normalized_lines)
-        return "\n".join(without_empty_lines)
-
-    def _normalize_line(self, line):
-        tokens = line.split()
-        return " ".join(tokens)
 
 
 if __name__ == '__main__':

@@ -3,10 +3,10 @@
 import argparse
 
 import Version
-from gitversionbuilder import Main
+from gitversionbuilder import main
 
 
-def main():
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Create a source file containing git version information.")
     parser.add_argument('--version', action='version', version=Version.VERSION_STRING)
     parser.add_argument('--lang', choices=['cpp', 'python'], required=True)
@@ -14,8 +14,4 @@ def main():
     parser.add_argument('file')
     args = parser.parse_args()
 
-    Main.create_version_file(git_directory=args.dir, output_file=args.file, lang=args.lang)
-
-
-if __name__ == '__main__':
-    main()
+    main.create_version_file(git_directory=args.dir, output_file=args.file, lang=args.lang)
