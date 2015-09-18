@@ -8,7 +8,7 @@ def from_git(git_directory):
     with utils.ChDir(git_directory):
         try:
             with open(os.devnull, 'w') as devnull:
-                version_string = subprocess.check_output(["git", "describe", "--tags", "--long", "--abbrev=4"], stderr=devnull)
+                version_string = subprocess.check_output(["git", "describe", "--tags", "--long", "--abbrev=7"], stderr=devnull)
             return versioninfo.parse(version_string, is_tag=True)
         except subprocess.CalledProcessError:
             version_string = subprocess.check_output(["git", "describe", "--all", "--long", "--abbrev=7"])

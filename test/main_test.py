@@ -71,7 +71,7 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                         TAG_NAME = "1.0.1"
                         COMMITS_SINCE_TAG = 0
                         GIT_COMMIT_ID = "%s"
-                    """ % commit_id[0:4]
+                    """ % commit_id[0:7]
                 main.create_version_file(git_directory=git_dir, output_file=out_file, lang="python")
                 self.assertCodeEqual(expected, self._read_file(out_file))
 
@@ -92,7 +92,7 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                         TAG_NAME = "1.0.1"
                         COMMITS_SINCE_TAG = 1
                         GIT_COMMIT_ID = "%s"
-                    """ % (commit_id[0:4], commit_id[0:4])
+                    """ % (commit_id[0:7], commit_id[0:7])
                 main.create_version_file(git_directory=git_dir, output_file=out_file, lang="python")
                 self.assertCodeEqual(expected, self._read_file(out_file))
 
