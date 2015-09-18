@@ -51,3 +51,7 @@ There is a python script in the git-version-builder directory.
 To generate a version.h file containing C++ version information, call
 
     python git-version-builder --lang cpp version.h
+
+To generate a python module with the information, call
+
+    python git-version-builder --lang python version.py
