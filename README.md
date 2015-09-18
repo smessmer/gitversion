@@ -31,6 +31,9 @@ Valid versions are for example
   - 0.8rc1
   - 12.34
 
+Development Versions
+-------------------
+
 If the build is not made from the tag, but there are some commits on top of it, then gitversion::VERSION.isDev() will return true and gitversion::VERSION.toString() will contain the number of commits since the tag and a git commit id.
 For example
 
