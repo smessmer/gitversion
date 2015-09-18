@@ -46,7 +46,7 @@ namespace gitversion {
         }
 
         constexpr bool isStable() const {
-            return (!is_dev()) && _tag == VersionTag::FINAL;
+            return (!isDev()) && _tag == VersionTag::FINAL;
         }
 
         constexpr bool operator==(const Version &rhs) const {
@@ -58,7 +58,7 @@ namespace gitversion {
         }
 
         std::string toString() const {
-            if (is_dev()) {
+            if (isDev()) {
                 return _versionTagString() + "-dev" + std::to_string(_commitsSinceVersion) + "-" + _gitCommitId.toStdString();
             } else {
                 return _versionTagString();
