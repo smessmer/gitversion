@@ -1,5 +1,9 @@
 # git-version
-This can be incorporated into your build process. If done so, it creates a source file containing git version information, which can then be used by your application.
+Make git version information (e.g. last tag name, git commit id, ...) available to your source files.
+
+This repository contains
+  - a python script to generate C++ headers or python modules with this information. You can include the python script into your build process
+  - a biicode block which can be directly included into biicode C++ projects
 
 
 Use with biicode (only C++)
