@@ -26,15 +26,15 @@ It expects your git tag to be of the form
 
 Valid versions are for example
 
-   1.0
-   1.0alpha
-   0.8rc1
-   12.34
+  - 1.0
+  - 1.0alpha
+  - 0.8rc1
+  - 12.34
 
 If the build is not made from the tag, but there are some commits on top of it, then gitversion::VERSION.isDev() will return true and gitversion::VERSION.toString() will contain the number of commits since the tag and a git commit id.
 For example
 
-  0.8alpha-dev3-3f4a
+    0.8alpha-dev3-3f4a
 
 means that the last tag was 0.8alpha, there have been 3 commits since, and the current git commit id is 3f4a.
 
