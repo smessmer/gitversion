@@ -33,7 +33,8 @@ GIT_COMMIT_ID = "%s"
 
 def _output(version_info, format):
     return format % (
-        version_info.version_string, version_info.tag_name, version_info.commits_since_tag, version_info.commit_id)
+        version_info.version_string, version_info.git_tag_name, version_info.git_commits_since_tag,
+        version_info.git_commit_id)
 
 
 def to_cpp(version_info):
