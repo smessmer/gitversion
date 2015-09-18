@@ -1,4 +1,4 @@
-# git-version
+# git-version [![Build Status](https://travis-ci.org/smessmer/gitversion.svg?branch=master)](https://travis-ci.org/smessmer/gitversion)
 Make git version information (e.g. last tag name, git commit id, ...) available to your source files.
 
 This repository contains
