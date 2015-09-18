@@ -37,15 +37,15 @@ namespace gitversion {
             return _tag;
         }
 
-	constexpr cpputils::const_string git_commit_id() const {
+	constexpr cpputils::const_string gitCommitId() const {
 	    return _gitCommitId;
 	}
 
-        constexpr bool is_dev() const {
+        constexpr bool isDev() const {
             return _commitsSinceVersion != 0;
         }
 
-        constexpr bool is_stable() const {
+        constexpr bool isStable() const {
             return (!is_dev()) && _tag == VersionTag::FINAL;
         }
 
