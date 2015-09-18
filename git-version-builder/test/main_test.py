@@ -25,6 +25,7 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                         GIT_COMMITS_SINCE_TAG = 0
                         GIT_COMMIT_ID = "%s"
                         IS_DEV_VERSION = True
+                        IS_STABLE_VERSION = False
                     """ % (commit_id[0:7], commit_id[0:7])
                 main.create_version_file(git_directory=git_dir, output_file=out_file, lang="python")
                 self.assertCodeEqual(expected, self._read_file(out_file))
@@ -50,6 +51,7 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                           constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 0;
                           constexpr const char *GIT_COMMIT_ID = "%s";
                           constexpr bool IS_DEV_VERSION = true;
+                          constexpr bool IS_STABLE_VERSION = false;
                         }
 
                         #endif
@@ -74,10 +76,10 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                         GIT_COMMITS_SINCE_TAG = 0
                         GIT_COMMIT_ID = "%s"
                         IS_DEV_VERSION = False
+                        IS_STABLE_VERSION = True
 
                         VERSION_COMPONENTS = ["1", "0", "1"]
                         VERSION_TAG = ""
-                        IS_STABLE_VERSION = True
                     """ % commit_id[0:7]
                 main.create_version_file(git_directory=git_dir, output_file=out_file, lang="python")
                 self.assertCodeEqual(expected, self._read_file(out_file))
@@ -100,10 +102,10 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                         GIT_COMMITS_SINCE_TAG = 1
                         GIT_COMMIT_ID = "%s"
                         IS_DEV_VERSION = True
+                        IS_STABLE_VERSION = False
 
                         VERSION_COMPONENTS = ["1", "0", "1"]
                         VERSION_TAG = ""
-                        IS_STABLE_VERSION = False
                     """ % (commit_id[0:7], commit_id[0:7])
                 main.create_version_file(git_directory=git_dir, output_file=out_file, lang="python")
                 self.assertCodeEqual(expected, self._read_file(out_file))
