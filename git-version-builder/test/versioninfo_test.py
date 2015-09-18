@@ -33,45 +33,65 @@ class VersionInfoTest(unittest.TestCase):
     def test_version_string_with_no_tag(self):
         self.assertEqual("dev2-23fa", VersionInfo("develop", 2, "23fa", False).version_string)
 
+    def test_is_dev_1(self):
+        self.assertTrue(VersionInfo("1.0", 1, "23fa", True).is_dev)
+
+    def test_is_dev_123(self):
+        self.assertTrue(VersionInfo("1.0", 123, "23fa", True).is_dev)
+
+    def test_is_dev_no_commits(self):
+        self.assertTrue(VersionInfo("1.0", 0, "23fa", False).is_dev)
+
+    def test_is_not_dev(self):
+        self.assertFalse(VersionInfo("1.0", 0, "23fa", True).is_dev)
+
     def test_interpret_valid_tag_name(self):
-        self.assertEqual(TagInterpretation(["1"], ""),
+        self.assertEqual(TagInterpretation(["1"], "", False),
                          VersionInfo("1", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_plain(self):
-        self.assertEqual(TagInterpretation(["1", "0"], ""),
+        self.assertEqual(TagInterpretation(["1", "0"], "", False),
                          VersionInfo("1.0", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_alpha(self):
-        self.assertEqual(TagInterpretation(["1", "0"], "alpha"),
+        self.assertEqual(TagInterpretation(["1", "0"], "alpha", False),
                          VersionInfo("1.0alpha", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_with_dash(self):
-        self.assertEqual(TagInterpretation(["1", "02", "3"], "beta"),
+        self.assertEqual(TagInterpretation(["1", "02", "3"], "beta", False),
                          VersionInfo("1.02.3-beta", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_stable(self):
-        self.assertEqual(TagInterpretation(["1", "02"], "stable"),
+        self.assertEqual(TagInterpretation(["1", "02"], "stable", False),
                          VersionInfo("1.02-stable", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_final(self):
-        self.assertEqual(TagInterpretation(["0", "8"], "final"),
+        self.assertEqual(TagInterpretation(["0", "8"], "final", False),
                          VersionInfo("0.8final", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_M3(self):
-        self.assertEqual(TagInterpretation(["0", "8"], "M3"),
+        self.assertEqual(TagInterpretation(["0", "8"], "M3", False),
                          VersionInfo("0.8-M3", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_m3(self):
-        self.assertEqual(TagInterpretation(["0", "8"], "m3"),
+        self.assertEqual(TagInterpretation(["0", "8"], "m3", False),
                          VersionInfo("0.8m3", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_rc2(self):
-        self.assertEqual(TagInterpretation(["0", "8"], "rc2"),
+        self.assertEqual(TagInterpretation(["0", "8"], "rc2", False),
                          VersionInfo("0.8rc2", 0, "23fa", True).interpret_tag_name())
 
     def test_interpret_valid_tag_name_RC2(self):
-        self.assertEqual(TagInterpretation(["0", "8"], "RC2"),
+        self.assertEqual(TagInterpretation(["0", "8"], "RC2", False),
                          VersionInfo("0.8-RC2", 0, "23fa", True).interpret_tag_name())
+
+    def test_interpret_valid_tag_name_of_dev_version_1(self):
+        self.assertEqual(TagInterpretation(["0", "8"], "", True),
+                         VersionInfo("0.8", 1, "23fa", True).interpret_tag_name())
+
+    def test_interpret_valid_tag_name_of_dev_version_2(self):
+        self.assertEqual(TagInterpretation(["0", "8"], "", True),
+                         VersionInfo("0.8", 123, "23fa", True).interpret_tag_name())
 
     def test_interpret_invalid_tag_name(self):
         self.assertEqual(None, VersionInfo("develop", 0, "23fa", True).interpret_tag_name())
@@ -94,20 +114,44 @@ class VersionInfoTest(unittest.TestCase):
 
 class TagInterpretationTest(unittest.TestCase):
     def test_equals(self):
-        self.assertEqual(TagInterpretation(["1", "2"], "alpha"),
-                         TagInterpretation(["1", "2"], "alpha"))
+        self.assertEqual(TagInterpretation(["1", "2"], "alpha", False),
+                         TagInterpretation(["1", "2"], "alpha", False))
 
     def test_not_equals_version_tag(self):
-        self.assertNotEqual(TagInterpretation(["1", "2"], "beta"),
-                            TagInterpretation(["1", "2"], "alpha"))
+        self.assertNotEqual(TagInterpretation(["1", "2"], "beta", False),
+                            TagInterpretation(["1", "2"], "alpha", False))
 
     def test_not_equals_components_1(self):
-        self.assertNotEqual(TagInterpretation(["1"], "alpha"),
-                            TagInterpretation(["1", "2"], "alpha"))
+        self.assertNotEqual(TagInterpretation(["1"], "alpha", False),
+                            TagInterpretation(["1", "2"], "alpha", False))
 
     def test_not_equals_components_2(self):
-        self.assertNotEqual(TagInterpretation(["1", "3"], "alpha"),
-                            TagInterpretation(["1", "2"], "alpha"))
+        self.assertNotEqual(TagInterpretation(["1", "3"], "alpha", False),
+                            TagInterpretation(["1", "2"], "alpha", False))
+
+    def test_alpha_is_not_stable(self):
+        self.assertFalse(TagInterpretation(["1"], "alpha", False).is_stable)
+
+    def test_beta_is_not_stable(self):
+        self.assertFalse(TagInterpretation(["1"], "beta", False).is_stable)
+
+    def test_rc3_is_not_stable(self):
+        self.assertFalse(TagInterpretation(["1"], "rc3", False).is_stable)
+
+    def test_M3_is_not_stable(self):
+        self.assertFalse(TagInterpretation(["1"], "M3", False).is_stable)
+
+    def test_stable_is_stable(self):
+        self.assertTrue(TagInterpretation(["1"], "stable", False).is_stable)
+
+    def test_final_is_stable(self):
+        self.assertTrue(TagInterpretation(["1"], "final", False).is_stable)
+
+    def test_plain_is_stable(self):
+        self.assertTrue(TagInterpretation(["1"], "", False).is_stable)
+
+    def test_dev_is_not_stable(self):
+        self.assertFalse(TagInterpretation(["1"], "", True).is_stable)
 
 
 if __name__ == '__main__':

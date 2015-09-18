@@ -21,6 +21,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                     constexpr const char *GIT_TAG_NAME = "versionone";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
+                    constexpr bool IS_DEV_VERSION = true;
                 }
 
                 #endif
@@ -44,6 +45,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                     constexpr const char *GIT_TAG_NAME = "develop";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
+                    constexpr bool IS_DEV_VERSION = true;
                 }
 
                 #endif
@@ -67,9 +69,11 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                     constexpr const char *GIT_TAG_NAME = "1.6";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
+                    constexpr bool IS_DEV_VERSION = true;
 
                     constexpr const char *VERSION_COMPONENTS[] = {"1", "6"};
                     constexpr const char *VERSION_TAG = "";
+                    constexpr bool IS_STABLE_VERSION = false;
                 }
 
                 #endif
@@ -93,9 +97,11 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                     constexpr const char *GIT_TAG_NAME = "1.06";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
+                    constexpr bool IS_DEV_VERSION = true;
 
                     constexpr const char *VERSION_COMPONENTS[] = {"1", "06"};
                     constexpr const char *VERSION_TAG = "";
+                    constexpr bool IS_STABLE_VERSION = false;
                 }
 
                 #endif
@@ -119,9 +125,11 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                     constexpr const char *GIT_TAG_NAME = "1.6alpha";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
+                    constexpr bool IS_DEV_VERSION = true;
 
                     constexpr const char *VERSION_COMPONENTS[] = {"1", "6"};
                     constexpr const char *VERSION_TAG = "alpha";
+                    constexpr bool IS_STABLE_VERSION = false;
                 }
 
                 #endif
@@ -145,9 +153,11 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                     constexpr const char *GIT_TAG_NAME = "1.6-alpha";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
+                    constexpr bool IS_DEV_VERSION = true;
 
                     constexpr const char *VERSION_COMPONENTS[] = {"1", "6"};
                     constexpr const char *VERSION_TAG = "alpha";
+                    constexpr bool IS_STABLE_VERSION = false;
                 }
 
                 #endif
@@ -166,6 +176,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 GIT_TAG_NAME = "versiontwo"
                 GIT_COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"
+                IS_DEV_VERSION = True
             """
         actual = versioninfooutputter.to_python(versioninfo.VersionInfo("versiontwo", 2, "230a", True))
         self.assertCodeEqual(expected, actual)
@@ -181,9 +192,11 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 GIT_TAG_NAME = "0.8"
                 GIT_COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"
+                IS_DEV_VERSION = True
 
                 VERSION_COMPONENTS = ["0", "8"]
                 VERSION_TAG = ""
+                IS_STABLE_VERSION = False
             """
         actual = versioninfooutputter.to_python(versioninfo.VersionInfo("0.8", 2, "230a", True))
         self.assertCodeEqual(expected, actual)
@@ -199,11 +212,73 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 GIT_TAG_NAME = "v1.0alpha"
                 GIT_COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"
+                IS_DEV_VERSION = True
 
                 VERSION_COMPONENTS = ["1", "0"]
                 VERSION_TAG = "alpha"
+                IS_STABLE_VERSION = False
             """
         actual = versioninfooutputter.to_python(versioninfo.VersionInfo("v1.0alpha", 2, "230a", True))
+        self.assertCodeEqual(expected, actual)
+
+    def test_output_python_instable_nondev(self):
+        expected = """
+                # ---------------------------------------------------
+                # This file is autogenerated by git-version.
+                # DO NOT MODIFY!
+                # ---------------------------------------------------
+
+                VERSION_STRING = "v1.0alpha"
+                GIT_TAG_NAME = "v1.0alpha"
+                GIT_COMMITS_SINCE_TAG = 0
+                GIT_COMMIT_ID = "230a"
+                IS_DEV_VERSION = False
+
+                VERSION_COMPONENTS = ["1", "0"]
+                VERSION_TAG = "alpha"
+                IS_STABLE_VERSION = False
+            """
+        actual = versioninfooutputter.to_python(versioninfo.VersionInfo("v1.0alpha", 0, "230a", True))
+        self.assertCodeEqual(expected, actual)
+
+    def test_output_python_stable_nondev_plain(self):
+        expected = """
+                # ---------------------------------------------------
+                # This file is autogenerated by git-version.
+                # DO NOT MODIFY!
+                # ---------------------------------------------------
+
+                VERSION_STRING = "v1.0"
+                GIT_TAG_NAME = "v1.0"
+                GIT_COMMITS_SINCE_TAG = 0
+                GIT_COMMIT_ID = "230a"
+                IS_DEV_VERSION = False
+
+                VERSION_COMPONENTS = ["1", "0"]
+                VERSION_TAG = ""
+                IS_STABLE_VERSION = True
+            """
+        actual = versioninfooutputter.to_python(versioninfo.VersionInfo("v1.0", 0, "230a", True))
+        self.assertCodeEqual(expected, actual)
+
+    def test_output_python_stable_stable(self):
+        expected = """
+                # ---------------------------------------------------
+                # This file is autogenerated by git-version.
+                # DO NOT MODIFY!
+                # ---------------------------------------------------
+
+                VERSION_STRING = "v1.0-stable"
+                GIT_TAG_NAME = "v1.0-stable"
+                GIT_COMMITS_SINCE_TAG = 0
+                GIT_COMMIT_ID = "230a"
+                IS_DEV_VERSION = False
+
+                VERSION_COMPONENTS = ["1", "0"]
+                VERSION_TAG = "stable"
+                IS_STABLE_VERSION = True
+            """
+        actual = versioninfooutputter.to_python(versioninfo.VersionInfo("v1.0-stable", 0, "230a", True))
         self.assertCodeEqual(expected, actual)
 
 

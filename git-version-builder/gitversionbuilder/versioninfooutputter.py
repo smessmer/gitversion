@@ -46,21 +46,23 @@ namespace version {
   constexpr const char *GIT_TAG_NAME = "%s";
   constexpr const unsigned int GIT_COMMITS_SINCE_TAG = %d;
   constexpr const char *GIT_COMMIT_ID = "%s";
+  constexpr bool IS_DEV_VERSION = %s;
 %s
 }
 
 #endif
 """ % (version_info.version_string, version_info.git_tag_name, version_info.git_commits_since_tag,
-       version_info.git_commit_id, tag_interpretation)
+       version_info.git_commit_id, str(version_info.is_dev).lower(), tag_interpretation)
 
     def tag_interpretation_formatter(self, tag_interpretation, version_components):
         return """
   constexpr const char *VERSION_COMPONENTS[] = %s;
   constexpr const char *VERSION_TAG = "%s";
-""" % (version_components, tag_interpretation.version_tag)
+  constexpr bool IS_STABLE_VERSION = %s;
+""" % (version_components, tag_interpretation.version_tag, str(tag_interpretation.is_stable).lower())
 
     def version_components_formatter(self, version_components):
-        return "{\""+"\", \"".join(version_components)+"\"}"
+        return "{\"" + "\", \"".join(version_components) + "\"}"
 
 
 # ----------------------------------------
@@ -79,15 +81,17 @@ VERSION_STRING = "%s"
 GIT_TAG_NAME = "%s"
 GIT_COMMITS_SINCE_TAG = %d
 GIT_COMMIT_ID = "%s"
+IS_DEV_VERSION = %s
 %s
 """ % (version_info.version_string, version_info.git_tag_name, version_info.git_commits_since_tag,
-       version_info.git_commit_id, tag_interpretation)
+       version_info.git_commit_id, version_info.is_dev, tag_interpretation)
 
     def tag_interpretation_formatter(self, tag_interpretation, version_components):
         return """
 VERSION_COMPONENTS = %s
 VERSION_TAG = "%s"
-""" % (version_components, tag_interpretation.version_tag)
+IS_STABLE_VERSION = %s
+""" % (version_components, tag_interpretation.version_tag, tag_interpretation.is_stable)
 
     def version_components_formatter(self, version_components):
-        return "[\""+"\", \"".join(version_components)+"\"]"
+        return "[\"" + "\", \"".join(version_components) + "\"]"
