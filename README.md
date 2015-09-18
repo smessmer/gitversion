@@ -15,7 +15,7 @@ Then, you can write in your source file:
     #include <messmer/gitversion/gitversion.h>
     cout << gitversion::VERSION.major() << endl;
     cout << gitversion::VERSION.toString() << endl;
-    cout << gitversion::VERSION.is_stable() << endl;
+    cout << gitversion::VERSION.isStable() << endl;
     cout << gitversion::VERSION.gitCommitId() << endl;
     // ... (see src/Version.h for more functions)
 
