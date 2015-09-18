@@ -2,7 +2,9 @@
 This can be incorporated into your build process. If done so, it creates a source file containing git version information, which can then be used by your application.
 
 
-== Use with biicode ==
+Use with biicode
+================
+
 Add the following to your CMakeLists.txt
 
     INCLUDE(messmer/gitversion/cmake)
@@ -18,7 +20,8 @@ Then, you can write in your source file:
     // ... (see src/Version.h for more functions)
 
 
-== Use manually ==
+Use manually
+================
 
 There is a python script in the git-version-builder directory.
 To generate a version.h file containing C++ version information, call
