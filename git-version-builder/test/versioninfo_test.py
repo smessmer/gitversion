@@ -25,10 +25,13 @@ class VersionInfoTest(unittest.TestCase):
                             versioninfo.VersionInfo("v1.6.1", 20, "23fa", False))
 
     def test_version_string(self):
-        self.assertEqual("v1.5-2-g23fa", versioninfo.VersionInfo("v1.5", 2, "23fa", True).version_string)
+        self.assertEqual("v1.5-dev2-23fa", versioninfo.VersionInfo("v1.5", 2, "23fa", True).version_string)
 
     def test_version_string_for_tag(self):
         self.assertEqual("v1.5", versioninfo.VersionInfo("v1.5", 0, "23fa", True).version_string)
+
+    def test_version_string_with_no_tag(self):
+        self.assertEqual("dev2-23fa", versioninfo.VersionInfo("develop", 2, "23fa", False).version_string)
 
     def test_parse_simple(self):
         obj = versioninfo.parse("v1.6-0-g3f2a", True)

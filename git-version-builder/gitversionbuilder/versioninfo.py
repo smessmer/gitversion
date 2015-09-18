@@ -16,11 +16,11 @@ class VersionInfo(EqualityMixin):
     @property
     def version_string(self):
         if not self.is_tag:
-            return "%s-g%s" % (self.tag_name, self.commit_id)
-        elif self.is_tag and self.commits_since_tag == 0:
+            return "dev%d-%s" % (self.commits_since_tag, self.commit_id)
+        elif self.commits_since_tag == 0:
             return self.tag_name
         else:
-            return "%s-%d-g%s" % (self.tag_name, self.commits_since_tag, self.commit_id)
+            return "%s-dev%d-%s" % (self.tag_name, self.commits_since_tag, self.commit_id)
 
     def __repr__(self):
         return "%s(%r)" % (self.__class__, self.__dict__)
