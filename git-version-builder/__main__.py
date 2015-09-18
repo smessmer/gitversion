@@ -18,4 +18,6 @@ if __name__ == '__main__':
     parser.add_argument('file')
     args = parser.parse_args()
 
+    print "Creating git version information from %s" % args.dir
+
     main.create_version_file(git_directory=args.dir, output_file=args.file, lang=args.lang)
