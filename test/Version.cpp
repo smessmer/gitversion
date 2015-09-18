@@ -27,17 +27,17 @@ static_assert(Version(1, 0, VersionTag::ALPHA, 0, "commitid") != Version(1, 0, V
 static_assert(Version(1, 0, VersionTag::ALPHA, 0, "commitid") != Version(1, 0, VersionTag::FINAL, 1, "commitid"), "Inequality for inequal commitsSinceVersion");
 static_assert(Version(1, 0, VersionTag::ALPHA, 0, "commitid") != Version(1, 0, VersionTag::FINAL, 0, "commitid2"), "Inequality for inequal gitCommitId");
 
-static_assert(!Version(1, 0, VersionTag::ALPHA, 0, "commitid").is_stable(), "Alpha is not stable");
-static_assert(!Version(1, 0, VersionTag::BETA, 0, "commitid").is_stable(), "Beta is not stable");
-static_assert(!Version(1, 0, VersionTag::RC1, 0, "commitid").is_stable(), "RC1 is not stable");
-static_assert(Version(1, 0, VersionTag::FINAL, 0, "commitid").is_stable(), "Final is stable");
-static_assert(!Version(1, 0, VersionTag::FINAL, 1, "commitid").is_stable(), "Final is not stable if there have been commits since");
+static_assert(!Version(1, 0, VersionTag::ALPHA, 0, "commitid").isStable(), "Alpha is not stable");
+static_assert(!Version(1, 0, VersionTag::BETA, 0, "commitid").isStable(), "Beta is not stable");
+static_assert(!Version(1, 0, VersionTag::RC1, 0, "commitid").isStable(), "RC1 is not stable");
+static_assert(Version(1, 0, VersionTag::FINAL, 0, "commitid").isStable(), "Final is stable");
+static_assert(!Version(1, 0, VersionTag::FINAL, 1, "commitid").isStable(), "Final is not stable if there have been commits since");
 
-static_assert(!Version(1, 0, VersionTag::FINAL, 0, "commitid").is_dev(), "Is not dev version when there haven't been commits since the last tag");
-static_assert(!Version(1, 0, VersionTag::ALPHA, 0, "commitid").is_dev(), "Is not dev version when there haven't been commits since the last tag, also for alpha versions");
-static_assert(Version(1, 0, VersionTag::ALPHA, 1, "commitid").is_dev(), "Is dev version when there haven't been commits since the last tag");
-static_assert(Version(1, 0, VersionTag::FINAL, 1, "commitid").is_dev(), "Is dev version when there haven't been commits since the last tag, also for final versions");
-static_assert(Version(1, 0, VersionTag::ALPHA, 103, "commitid").is_dev(), "Is dev version when there haven't been commits since the last tag, also for higher commit counts");
+static_assert(!Version(1, 0, VersionTag::FINAL, 0, "commitid").isDev(), "Is not dev version when there haven't been commits since the last tag");
+static_assert(!Version(1, 0, VersionTag::ALPHA, 0, "commitid").isDev(), "Is not dev version when there haven't been commits since the last tag, also for alpha versions");
+static_assert(Version(1, 0, VersionTag::ALPHA, 1, "commitid").isDev(), "Is dev version when there haven't been commits since the last tag");
+static_assert(Version(1, 0, VersionTag::FINAL, 1, "commitid").isDev(), "Is dev version when there haven't been commits since the last tag, also for final versions");
+static_assert(Version(1, 0, VersionTag::ALPHA, 103, "commitid").isDev(), "Is dev version when there haven't been commits since the last tag, also for higher commit counts");
 
 TEST(VersionTest, ToString) {
     EXPECT_EQ("0.8alpha", Version(0, 8, VersionTag::ALPHA, 0, "commitid").toString());
