@@ -17,6 +17,8 @@ script:
 - bii cpp:configure || bii cpp:configure
 - bii cpp:build --target messmer_gitversion_test_main -- -j2
 - "./bin/messmer_gitversion_test_main"
+# Also run python tests
+- cd git-version-builder && python git-version-builder/setup.py test
 after_success:
 - bii user ${BII_USERNAME} -p ${BII_PASSWORD}
 - bii publish
