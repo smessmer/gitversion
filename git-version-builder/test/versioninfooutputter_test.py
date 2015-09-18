@@ -13,8 +13,8 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 // ---------------------------------------------------
 
                 #pragma once
-                #ifndef __GITVERSIONBUILDER__VERSION_H__
-                #define __GITVERSIONBUILDER__VERSION_H__
+                #ifndef MESSMER_GITVERSION_VERSION_H
+                #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
                     constexpr const char *VERSION_STRING = "versionone-dev2-230a";
@@ -36,8 +36,8 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 // ---------------------------------------------------
 
                 #pragma once
-                #ifndef __GITVERSIONBUILDER__VERSION_H__
-                #define __GITVERSIONBUILDER__VERSION_H__
+                #ifndef MESSMER_GITVERSION_VERSION_H
+                #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
                     constexpr const char *VERSION_STRING = "dev2-230a";
@@ -59,8 +59,8 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 // ---------------------------------------------------
 
                 #pragma once
-                #ifndef __GITVERSIONBUILDER__VERSION_H__
-                #define __GITVERSIONBUILDER__VERSION_H__
+                #ifndef MESSMER_GITVERSION_VERSION_H
+                #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
                     constexpr const char *VERSION_STRING = "1.6-dev2-230a";
@@ -85,8 +85,8 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 // ---------------------------------------------------
 
                 #pragma once
-                #ifndef __GITVERSIONBUILDER__VERSION_H__
-                #define __GITVERSIONBUILDER__VERSION_H__
+                #ifndef MESSMER_GITVERSION_VERSION_H
+                #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
                     constexpr const char *VERSION_STRING = "1.06-dev2-230a";
@@ -111,8 +111,8 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 // ---------------------------------------------------
 
                 #pragma once
-                #ifndef __GITVERSIONBUILDER__VERSION_H__
-                #define __GITVERSIONBUILDER__VERSION_H__
+                #ifndef MESSMER_GITVERSION_VERSION_H
+                #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
                     constexpr const char *VERSION_STRING = "1.6alpha-dev2-230a";
@@ -137,8 +137,8 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 // ---------------------------------------------------
 
                 #pragma once
-                #ifndef __GITVERSIONBUILDER__VERSION_H__
-                #define __GITVERSIONBUILDER__VERSION_H__
+                #ifndef MESSMER_GITVERSION_VERSION_H
+                #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
                     constexpr const char *VERSION_STRING = "1.6-alpha-dev2-230a";

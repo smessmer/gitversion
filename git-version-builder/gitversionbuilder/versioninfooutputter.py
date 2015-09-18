@@ -38,8 +38,8 @@ class _CppFormatter(_Formatter):
 // ---------------------------------------------------
 
 #pragma once
-#ifndef __GITVERSIONBUILDER__VERSION_H__
-#define __GITVERSIONBUILDER__VERSION_H__
+#ifndef MESSMER_GITVERSION_VERSION_H
+#define MESSMER_GITVERSION_VERSION_H
 
 namespace version {
   constexpr const char *VERSION_STRING = "%s";
