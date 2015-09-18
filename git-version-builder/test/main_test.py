@@ -99,6 +99,8 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
     def _setup_git_return_commit_id(self):
         with open(os.devnull, 'w') as devnull:
             subprocess.check_call(["git", "init"], stdout=devnull)
+            subprocess.check_call(["git", "config", "user.email", "you@example.com"]);
+            subprocess.check_call(["git", "config", "user.name", "Your Name"]);
             return self._create_git_commit()
 
     def _create_git_commit(self):
