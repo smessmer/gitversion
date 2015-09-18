@@ -1,4 +1,3 @@
-import re
 from utils import EqualityMixin
 
 
@@ -25,21 +24,3 @@ class VersionInfo(EqualityMixin):
     def __repr__(self):
         return "%s(%r)" % (self.__class__, self.__dict__)
 
-
-class VersionParseError(Exception):
-    def __init__(self, version_string):
-        self.version_string = version_string
-
-    def __str__(self):
-        return "Version not parseable: %s" % self.version_string
-
-
-def parse(git_version_string, is_tag):
-    matched = re.match("^([a-zA-Z0-9\.\-/]+)-([0-9]+)-g([0-9a-f]+)$", git_version_string)
-    if matched:
-        tag = matched.group(1)
-        commits_since_tag = int(matched.group(2))
-        commit_id = matched.group(3)
-        return VersionInfo(tag, commits_since_tag, commit_id, is_tag)
-    else:
-        raise VersionParseError(git_version_string)

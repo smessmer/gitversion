@@ -33,43 +33,6 @@ class VersionInfoTest(unittest.TestCase):
     def test_version_string_with_no_tag(self):
         self.assertEqual("dev2-23fa", versioninfo.VersionInfo("develop", 2, "23fa", False).version_string)
 
-    def test_parse_simple(self):
-        obj = versioninfo.parse("v1.6-0-g3f2a", True)
-        self.assertEqual(versioninfo.VersionInfo("v1.6", 0, "3f2a", True), obj)
-
-    def test_parse_with_commits_since_tag(self):
-        obj = versioninfo.parse("v1.6.3-23-g49302", True)
-        self.assertEqual(versioninfo.VersionInfo("v1.6.3", 23, "49302", True), obj)
-
-    def test_parse_with_dashes_in_tag(self):
-        obj = versioninfo.parse("v1.6.3-23-20-gfade", True)
-        self.assertEqual(versioninfo.VersionInfo("v1.6.3-23", 20, "fade", True), obj)
-
-    def test_parse_with_slashes_in_tag(self):
-        obj = versioninfo.parse("/heads/develop-20-gfade", False)
-        self.assertEqual(versioninfo.VersionInfo("/heads/develop", 20, "fade", False), obj)
-
-    def test_parse_missing_tag(self):
-        self.assertRaises(versioninfo.VersionParseError, versioninfo.parse, "23-gfade", True)
-
-    def test_parse_empty_tag(self):
-        self.assertRaises(versioninfo.VersionParseError, versioninfo.parse, "-23-gfade", True)
-
-    def test_parse_missing_commits_since_tag(self):
-        self.assertRaises(versioninfo.VersionParseError, versioninfo.parse, "v2.3-gfade", True)
-
-    def test_parse_empty_commits_since_tag(self):
-        self.assertRaises(versioninfo.VersionParseError, versioninfo.parse, "v2.3--gfade", True)
-
-    def test_parse_commits_since_tag_not_int(self):
-        self.assertRaises(versioninfo.VersionParseError, versioninfo.parse, "v2.3-a2-gfade", True)
-
-    def test_parse_missing_commit_id(self):
-        self.assertRaises(versioninfo.VersionParseError, versioninfo.parse, "v2.3-20", True)
-
-    def test_parse_empty_commit_id(self):
-        self.assertRaises(versioninfo.VersionParseError, versioninfo.parse, "v2.3-20-", True)
-
 
 if __name__ == '__main__':
     unittest.main()
