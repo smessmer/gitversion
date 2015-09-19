@@ -52,7 +52,7 @@ The following table shows the basic variables that are always available.
 
 <table>
   <tr>
-    <th rowspan="4">VERSION_STRING</th>
+    <th rowspan="5">VERSION_STRING</th>
     <td style="white-space: nowrap;">1.0</td>
     <td>Built from git tag "1.0".</td>
   </tr>
@@ -67,6 +67,9 @@ The following table shows the basic variables that are always available.
   <tr>
     <td style="white-space: nowrap;">dev2-4fa254c</td>
     <td>The repository doesn't have any git tags yet. There are 2 commits since the repository started and the current git commit has commit id 4fa254c.</td>
+  </tr>
+  <tr>
+    <td colspan="2">All of these version numbers can have the suffix "-modified", which means that there have been modifications since the last commit.
   </tr>
 
   <tr>
