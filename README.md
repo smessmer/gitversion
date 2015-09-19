@@ -69,7 +69,11 @@ The following table shows the basic variables that are always available.
     <td>The repository doesn't have any git tags yet. There are 2 commits since the repository started and the current git commit has commit id 4fa254c.</td>
   </tr>
   <tr>
-    <td colspan="2">All of these version numbers can have the suffix "-modified", which means that there have been modifications since the last commit.
+    <td>0.8-modified</td>
+    <td rowspan="2">The suffix "-modified" will be used if there have been modifications since the last commit
+  </tr>
+  <tr>
+    <td>0.8-dev3-4fa254c-modified</td>
   </tr>
 
   <tr>
