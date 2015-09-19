@@ -20,9 +20,9 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                         # DO NOT MODIFY!
                         # ---------------------------------------------------
 
-                        VERSION_STRING = "dev0-%s"
+                        VERSION_STRING = "dev1-%s"
                         GIT_TAG_NAME = "master"
-                        GIT_COMMITS_SINCE_TAG = 0
+                        GIT_COMMITS_SINCE_TAG = 1
                         GIT_COMMIT_ID = "%s"
                         IS_DEV_VERSION = True
                         IS_STABLE_VERSION = False
@@ -46,9 +46,9 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                         #define MESSMER_GITVERSION_VERSION_H
 
                         namespace version {
-                          constexpr const char *VERSION_STRING = "dev0-%s";
+                          constexpr const char *VERSION_STRING = "dev1-%s";
                           constexpr const char *GIT_TAG_NAME = "master";
-                          constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 0;
+                          constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 1;
                           constexpr const char *GIT_COMMIT_ID = "%s";
                           constexpr bool IS_DEV_VERSION = true;
                           constexpr bool IS_STABLE_VERSION = false;
