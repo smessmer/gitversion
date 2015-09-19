@@ -61,6 +61,10 @@ class VersionInfoTest(unittest.TestCase):
         self.assertEqual(TagInterpretation(["1", "02", "3"], "beta", False),
                          VersionInfo("1.02.3-beta", 0, "23fa", True).interpret_tag_name())
 
+    def test_interpret_valid_tag_name_with_zeroes_in_component(self):
+        self.assertEqual(TagInterpretation(["1", "020", "3"], "beta", False),
+                         VersionInfo("1.020.3-beta", 0, "23fa", True).interpret_tag_name())
+
     def test_interpret_valid_tag_name_stable(self):
         self.assertEqual(TagInterpretation(["1", "02"], "stable", False),
                          VersionInfo("1.02-stable", 0, "23fa", True).interpret_tag_name())
