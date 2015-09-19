@@ -9,7 +9,7 @@ def to_python(version_info):
     return _PythonFormatter().format(version_info)
 
 
-class _Formatter:
+class _Formatter(object):
     def __init__(self):
         pass
 

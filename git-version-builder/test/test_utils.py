@@ -6,7 +6,8 @@ import random
 import string
 from gitversionbuilder.utils import ChDir
 
-class CodeAsserts:
+
+class CodeAsserts(object):
     def assertCodeEqual(self, expected, actual):
         self.assertEqual(self._normalize(expected), self._normalize(actual))
 
@@ -21,7 +22,7 @@ class CodeAsserts:
         return " ".join(tokens)
 
 
-class TempFile:
+class TempFile(object):
     def __enter__(self):
         f = NamedTemporaryFile()
         f.close() # This also deletes the file
@@ -33,7 +34,7 @@ class TempFile:
             os.remove(self.filename)
 
 
-class GitDir:
+class GitDir(object):
     def __enter__(self):
         self.dir = mkdtemp()
         return self

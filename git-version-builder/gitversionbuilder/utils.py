@@ -1,11 +1,12 @@
 import os
 
+
 # Use this like
 # > with ChDir(my_dir):
 # >   do_something()
 # Then, the working directory will be set to my_dir, do_something() will be called,
 # and the working directory will be set back.
-class ChDir:
+class ChDir(object):
     def __init__(self, dir):
         self.dir = dir
 
