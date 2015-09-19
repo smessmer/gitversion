@@ -1,14 +1,12 @@
 language: python
+sudo: required
 script:
 - cd git-version-builder && python setup.py test
-after_success:
-- bii user ${BII_USERNAME} -p ${BII_PASSWORD}
-- bii publish
-#deploy:
-#  provider: biicode
-#  user: ${BII_USERNAME}
-#  password:
-#    secure: ${BII_PASSWORD}
-#  on:
-#    branch: develop
+deploy:
+  provider: biicode
+  user: ${BII_USERNAME}
+  password:
+    secure: ${BII_PASSWORD}
+  on:
+    branch: develop
 
