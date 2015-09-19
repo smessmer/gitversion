@@ -4,6 +4,7 @@ from gitversionbuilder import versioninfo
 from gitversionbuilder import versioninfooutputter
 import test_utils
 
+
 class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
     def test_output_cpp(self):
         expected = """
