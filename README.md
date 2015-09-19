@@ -70,7 +70,7 @@ The following table shows the basic variables that are always available.
   </tr>
   <tr>
     <td>0.8-modified</td>
-    <td rowspan="2">The suffix "-modified" will be used if there have been modifications since the last commit
+    <td rowspan="2">The suffix "-modified" will be used if there have been modifications since the last commit.</td>
   </tr>
   <tr>
     <td>0.8-dev3-4fa254c-modified</td>
