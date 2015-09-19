@@ -52,7 +52,7 @@ The following table shows the basic variables that are always available.
 
 <table>
   <tr>
-    <th rowspan="5">VERSION_STRING</th>
+    <th rowspan="6">VERSION_STRING</th>
     <td style="white-space: nowrap;">1.0</td>
     <td>Built from git tag "1.0".</td>
   </tr>
