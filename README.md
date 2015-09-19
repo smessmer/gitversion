@@ -110,7 +110,7 @@ If you use a version scheme supported by this, we will provide the following add
 <table>
   <tr>
     <th>IS_STABLE_VERSION</th>
-    <td>True, if built from a final tag; i.e. IS_DEV_VERSION==false, GIT_COMMITS_SINCE_TAG == 0 and VERSION_TAG in {"", "stable", "final"}</td>
+    <td>True, if built from a final tag; i.e. IS_DEV_VERSION == false and GIT_COMMITS_SINCE_TAG == 0 and VERSION_TAG in {"", "stable", "final"}</td>
   </tr>
 
   <tr>
