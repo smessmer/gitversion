@@ -1,9 +1,10 @@
 # git-version [![Build Status](https://travis-ci.org/smessmer/gitversion.svg?branch=master)](https://travis-ci.org/smessmer/gitversion)
-Make git version information (e.g. last tag name, git commit id, ...) available to your source files.
+Make git version information (e.g. git tag name, git commit id, ...) available to your source files.
+A simple use case scenario is to output this version information when the application is called with "--version".
 
 This repository contains
-  - a python script to generate C++ headers or python modules with this information. You can include the python script into your build process
-  - a biicode block which can be directly included into biicode C++ projects
+  - A python script to generate C++ headers or python modules with this version information. You can add the python script to your build process to autogenerate the files on each build.
+  - A biicode block which can be directly included into biicode C++ projects. It will then automatically be run on each build and you only have to #include the generated file.
 
 
 Use with biicode (only C++)
