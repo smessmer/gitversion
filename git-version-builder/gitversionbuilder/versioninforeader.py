@@ -11,26 +11,30 @@ def from_git(git_directory):
             with open(os.devnull, 'w') as devnull:
                 version_string = subprocess.check_output(["git", "describe", "--tags", "--long", "--abbrev=7"],
                                                          stderr=devnull)
-            return _parse_git_version(version_string)
+            return _parse_git_version(version_string, _is_modified_since_commit_in_cwd())
         except subprocess.CalledProcessError:
             # If there is no git tag, then the commits_since_tag returned by git is wrong
             # (because they consider the branch HEAD the tag and there are 0 commits since the branch head).
             # We want to return the total number of commits in the branch if there is no tag.
             total_num_commits = _total_number_of_commits_in_cwd()
             if total_num_commits > 0:
+                # There is no git tag, but there are commits
                 branch_name = _branch_name_in_cwd()
                 commit_id = _commit_id_in_cwd()
                 return versioninfo.VersionInfo(git_tag_name=branch_name,
                                                git_commits_since_tag=total_num_commits,
                                                git_commit_id=commit_id,
-                                               git_tag_exists=False)
+                                               git_tag_exists=False,
+                                               modified_since_commit=_is_modified_since_commit_in_cwd())
             else:
+                # There are no commits yet
                 branch_name = "HEAD"
                 commit_id = "0"
                 return versioninfo.VersionInfo(git_tag_name=branch_name,
                                                git_commits_since_tag=total_num_commits,
                                                git_commit_id=commit_id,
-                                               git_tag_exists=False)
+                                               git_tag_exists=False,
+                                               modified_since_commit=_cwd_is_not_empty())
 
 
 def _total_number_of_commits_in_cwd():
@@ -49,6 +53,26 @@ def _commit_id_in_cwd():
     return subprocess.check_output(["git", "log", "--format=%h", "-n", "1"]).strip()
 
 
+def _is_modified_since_commit_in_cwd():
+    return _there_are_modified_files_in_cwd() or _there_are_untracked_files_in_cwd()
+
+
+def _there_are_untracked_files_in_cwd():
+    return subprocess.check_output(["git", "ls-files", "--exclude-standard", "--others"]).strip() != ""
+
+
+def _there_are_modified_files_in_cwd():
+    return_code = subprocess.call(["git", "diff-index", "--quiet", "HEAD"])
+    assert (return_code == 0 or return_code == 1)
+    return return_code == 1
+
+
+def _cwd_is_not_empty():
+    all_entries = os.listdir(os.getcwd())
+    nongit_entries = [entry for entry in all_entries if entry != ".git"]
+    return len(nongit_entries) != 0
+
+
 def _remove_prefix(prefix, string):
     if string.startswith(prefix):
         return string[len(prefix):]
@@ -64,13 +88,14 @@ class VersionParseError(Exception):
         return "Version not parseable: %s" % self.version_string
 
 
-def _parse_git_version(git_version_string):
+def _parse_git_version(git_version_string, modified_since_commit):
     matched = re.match("^([a-zA-Z0-9\.\-/]+)-([0-9]+)-g([0-9a-f]+)$", git_version_string)
     if matched:
         tag = matched.group(1)
         commits_since_tag = int(matched.group(2))
         commit_id = matched.group(3)
         return versioninfo.VersionInfo(git_tag_name=tag, git_commits_since_tag=commits_since_tag,
-                                       git_commit_id=commit_id, git_tag_exists=True)
+                                       git_commit_id=commit_id, git_tag_exists=True,
+                                       modified_since_commit=modified_since_commit)
     else:
         raise VersionParseError(git_version_string)

@@ -50,13 +50,29 @@ class GitDir(object):
             self._silent_call(["git", "config", "user.name", "Your Name"]);
 
     def create_git_commit(self):
-        filename = self._random_string(10)
+        self.add_tracked_file()
         with ChDir(self.dir):
-            self._silent_call(["touch", filename])
-            self._silent_call(["git", "add", filename])
             self._silent_call(["git", "commit", "-m", "message"])
             commit_id = self._silent_call(["git", "rev-parse", "--short", "HEAD"]).strip()
             return commit_id
+
+    def add_untracked_file(self):
+        filename = self._random_string(10)
+        with ChDir(self.dir):
+            self._silent_call(["touch", filename])
+            return filename
+
+    def add_tracked_file(self):
+        filename = self.add_untracked_file()
+        with ChDir(self.dir):
+            self._silent_call(["git", "add", filename])
+            return filename
+
+    def modify_file(self, filename):
+        content = self._random_string(10)
+        with ChDir(self.dir):
+            with open(filename, 'w') as file:
+                file.write(content)
 
     def _random_string(self, length):
         return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))

@@ -85,8 +85,13 @@ The following table shows the basic variables that are always available.
   </tr>
 
   <tr>
+    <th>MODIFIED_SINCE_COMMIT</th>
+    <td colspan="2">True, if there are uncommitted changes in the git working directory or index since the last commit; i.e. untracked (and not ignored) files, or modified files in the working directory or the index.</td>
+  </tr>
+
+  <tr>
     <th>IS_DEV_VERSION</th>
-    <td colspan="2">True, if this is a development version; i.e. there are no tags yet or GIT_COMMITS_SINCE_TAG > 0.</td>
+    <td colspan="2">True, if this is a development version; i.e. there are no tags yet or GIT_COMMITS_SINCE_TAG > 0 or MODIFIED_SINCE_COMMIT.</td>
   </tr>
 </table>
 
