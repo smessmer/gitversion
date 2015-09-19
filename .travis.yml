@@ -1,12 +1,20 @@
 language: python
 sudo: required
+before_script:
+- wget https://raw.githubusercontent.com/smessmer/travis-utils/master/setup_biicode_project.sh
+  && chmod +x setup_biicode_project.sh
+  && ./setup_biicode_project.sh
+  && rm setup_biicode_project.sh
 script:
 - cd git-version-builder && python setup.py test
-deploy:
-  provider: biicode
-  user: ${BII_USERNAME}
-  password:
-    secure: ${BII_PASSWORD}
-  on:
-    branch: develop
+after_success:
+- bii user ${BII_USERNAME} -p ${BII_PASSWORD}
+- bii publish
+#deploy:
+#  provider: biicode
+#  user: ${BII_USERNAME}
+#  password:
+#    secure: ${BII_PASSWORD}
+#  on:
+#    branch: develop
 
