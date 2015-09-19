@@ -6,9 +6,9 @@ from gitversionbuilder import main
 main.create_version_file(git_directory=".", output_file="Version.py", lang="python")
 version = main.get_version(git_directory=".")
 
-setup(name='gitversion',
+setup(name='git-version',
       version=version.version_string,
-      description='Make git version information (e.g. git tag name, git commit id, ...) available to your source files. A simple use case scenario is to output this version information when the application is called with "--version".',
+      description='Make git version information (e.g. git tag name, git commit id, ...) available to your C++ or python source files. A simple use case scenario is to output this version information when the application is called with "--version".',
       author='Sebastian Messmer',
       author_email='heinzisoft@web.de',
       license='GPLv3',
