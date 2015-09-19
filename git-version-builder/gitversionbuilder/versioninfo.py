@@ -28,7 +28,7 @@ class VersionInfo(EqualityMixin):
         self.is_dev = (not git_tag_exists) or (git_commits_since_tag != 0)
 
     def interpret_tag_name(self):
-        matched = re.match("^v?([0-9]+(?:\.[0-9]+)*)-?(alpha|beta|(rc|RC)[0-9]|(m|M)[0-9]|stable|final)?$",
+        matched = re.match("^v?([0-9]+(?:\.[0-9]+)*)(?:-?(alpha|beta|(rc|RC)[0-9]|(m|M)[0-9]|stable|final))?$",
                            self.git_tag_name)
         if matched:
             version_components = matched.group(1).split('.')

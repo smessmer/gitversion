@@ -89,7 +89,7 @@ Additional Information
 
 We will parse the git tag name and provide additional information if you use the following versioning scheme for your git tag names:
 
-    /^v?[0-9]+(\.[0-9]+)*-?(alpha|beta|(rc|RC)[0-9]|(m|M)[0-9]|stable|final)?$/
+    /^v?[0-9]+(\.[0-9]+)*(-?(alpha|beta|(rc|RC)[0-9]|(m|M)[0-9]|stable|final))?$/
 
 In words, we support a set of numeric version components separated by a dot, then optionally a version tag like "alpha", "beta", "rc2", "M3", "stable", "final". The version tag can optionally be separated with a dash and the version number can optionally be prefixed with "v".
 
