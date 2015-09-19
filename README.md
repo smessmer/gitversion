@@ -24,18 +24,19 @@ Then, you can write in your source file:
     cout << version::GIT_COMMITS_SINCE_TAG << endl;
     // ... (see below for more variables)
 
+That's it already. Have fun :)
 
 Use manually (C++ and Python)
 ================
 
 There is a python script in the git-version-builder directory.
-To generate a version.h file containing C++ version information, call
+To generate a version.h file containing C++ version information for the git repository located in myrepositorydir, call
 
-    python git-version-builder --lang cpp version.h
+    python git-version-builder --dir myrepositorydir --lang cpp version.h
 
 To generate a python module with the information, call
 
-    python git-version-builder --lang python version.py
+    python git-version-builder --dir myrepositorydir --lang python version.py
 
 
 Available Information
