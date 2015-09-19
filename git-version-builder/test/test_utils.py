@@ -37,33 +37,46 @@ class TempFile(object):
 class GitDir(object):
     def __enter__(self):
         self.dir = mkdtemp()
+        self._setup_git()
         return self
 
     def __exit__(self, type, value, traceback):
         shutil.rmtree(self.dir)
 
-    def setup_git_return_commit_id(self):
+    def _setup_git(self):
         with ChDir(self.dir):
-            with open(os.devnull, 'w') as devnull:
-                subprocess.check_call(["git", "init"], stdout=devnull)
-                subprocess.check_call(["git", "config", "user.email", "you@example.com"]);
-                subprocess.check_call(["git", "config", "user.name", "Your Name"]);
-                return self.create_git_commit()
+            self._silent_call(["git", "init"])
+            self._silent_call(["git", "config", "user.email", "you@example.com"]);
+            self._silent_call(["git", "config", "user.name", "Your Name"]);
 
     def create_git_commit(self):
         filename = self._random_string(10)
         with ChDir(self.dir):
-            with open(os.devnull, 'w') as devnull:
-                subprocess.check_call(["touch", filename], stdout=devnull)
-                subprocess.check_call(["git", "add", filename], stdout=devnull)
-                subprocess.check_call(["git", "commit", "-m", "message"], stdout=devnull)
-                commit_id = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
-                return commit_id
+            self._silent_call(["touch", filename])
+            self._silent_call(["git", "add", filename])
+            self._silent_call(["git", "commit", "-m", "message"])
+            commit_id = self._silent_call(["git", "rev-parse", "--short", "HEAD"]).strip()
+            return commit_id
 
     def _random_string(self, length):
         return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
 
+    def _silent_call(self, command):
+        with open(os.devnull, 'w') as devnull:
+            return subprocess.check_output(command, stderr=devnull)
+
+    def create_git_branch(self, branch_name):
+        with ChDir(self.dir):
+            self._silent_call(["git", "checkout", "-b", branch_name])
+
+    def switch_git_branch(self, branch_name):
+        with ChDir(self.dir):
+            self._silent_call(["git", "checkout", branch_name])
+
+    def checkout_git_commit(self, commit_id):
+        with ChDir(self.dir):
+            self._silent_call(["git", "checkout", commit_id])
+
     def create_git_tag(self, tag_name):
         with ChDir(self.dir):
-            with open(os.devnull, 'w') as devnull:
-                subprocess.check_call(["git", "tag", tag_name], stdout=devnull)
+            self._silent_call(["git", "tag", tag_name])
