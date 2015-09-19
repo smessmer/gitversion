@@ -41,6 +41,8 @@ To generate a python module with the information, call
 If you want to build a distribution of the package to use it somewhere else, you can use the standard python [setuptools](https://pythonhosted.org/setuptools/).
 A corresponding setup.py is available in the directory.
 
+The script is also available on PyPi ad [git-version](https://pypi.python.org/pypi/git-version).
+
 Available Information
 =================
 
