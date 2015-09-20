@@ -17,7 +17,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
-                    constexpr const char *VERSION_STRING = "versionone-dev2-230a";
+                    constexpr const char *VERSION_STRING = "versionone.dev2+rev230a";
                     constexpr const char *GIT_TAG_NAME = "versionone";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
@@ -42,7 +42,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
-                    constexpr const char *VERSION_STRING = "dev2-230a";
+                    constexpr const char *VERSION_STRING = "dev2+rev230a";
                     constexpr const char *GIT_TAG_NAME = "develop";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
@@ -68,7 +68,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
-                    constexpr const char *VERSION_STRING = "1.6-dev2-230a";
+                    constexpr const char *VERSION_STRING = "1.6.dev2+rev230a";
                     constexpr const char *GIT_TAG_NAME = "1.6";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
@@ -97,7 +97,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
-                    constexpr const char *VERSION_STRING = "1.06-dev2-230a";
+                    constexpr const char *VERSION_STRING = "1.06.dev2+rev230a";
                     constexpr const char *GIT_TAG_NAME = "1.06";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
@@ -126,7 +126,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
-                    constexpr const char *VERSION_STRING = "1.6alpha-dev2-230a";
+                    constexpr const char *VERSION_STRING = "1.6alpha.dev2+rev230a";
                     constexpr const char *GIT_TAG_NAME = "1.6alpha";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
@@ -155,7 +155,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 #define MESSMER_GITVERSION_VERSION_H
 
                 namespace version {
-                    constexpr const char *VERSION_STRING = "1.6-alpha-dev2-230a";
+                    constexpr const char *VERSION_STRING = "1.6-alpha.dev2+rev230a";
                     constexpr const char *GIT_TAG_NAME = "1.6-alpha";
                     constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 2;
                     constexpr const char *GIT_COMMIT_ID = "230a";
@@ -179,7 +179,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 # DO NOT MODIFY!
                 # ---------------------------------------------------
 
-                VERSION_STRING = "versiontwo-dev2-230a"
+                VERSION_STRING = "versiontwo.dev2+rev230a"
                 GIT_TAG_NAME = "versiontwo"
                 GIT_COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"
@@ -196,7 +196,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 # DO NOT MODIFY!
                 # ---------------------------------------------------
 
-                VERSION_STRING = "0.8-dev2-230a"
+                VERSION_STRING = "0.8.dev2+rev230a"
                 GIT_TAG_NAME = "0.8"
                 GIT_COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"
@@ -217,7 +217,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 # DO NOT MODIFY!
                 # ---------------------------------------------------
 
-                VERSION_STRING = "v1.0alpha-dev2-230a"
+                VERSION_STRING = "v1.0alpha.dev2+rev230a"
                 GIT_TAG_NAME = "v1.0alpha"
                 GIT_COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"
@@ -238,7 +238,7 @@ class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):
                 # DO NOT MODIFY!
                 # ---------------------------------------------------
 
-                VERSION_STRING = "v1.0alpha-dev2-230a-modified"
+                VERSION_STRING = "v1.0alpha.dev2+rev230a-modified"
                 GIT_TAG_NAME = "v1.0alpha"
                 GIT_COMMITS_SINCE_TAG = 2
                 GIT_COMMIT_ID = "230a"

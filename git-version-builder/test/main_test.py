@@ -27,7 +27,7 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                     # DO NOT MODIFY!
                     # ---------------------------------------------------
 
-                    VERSION_STRING = "dev1-%s"
+                    VERSION_STRING = "dev1+rev%s"
                     GIT_TAG_NAME = "master"
                     GIT_COMMITS_SINCE_TAG = 1
                     GIT_COMMIT_ID = "%s"
@@ -54,7 +54,7 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                     #define MESSMER_GITVERSION_VERSION_H
 
                     namespace version {
-                      constexpr const char *VERSION_STRING = "dev1-%s";
+                      constexpr const char *VERSION_STRING = "dev1+rev%s";
                       constexpr const char *GIT_TAG_NAME = "master";
                       constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 1;
                       constexpr const char *GIT_COMMIT_ID = "%s";
@@ -79,7 +79,7 @@ class IntegrationTest(unittest.TestCase, test_utils.CodeAsserts):
                     # DO NOT MODIFY!
                     # ---------------------------------------------------
 
-                    VERSION_STRING = "dev1-%s"
+                    VERSION_STRING = "dev1+rev%s"
                     GIT_TAG_NAME = "master"
                     GIT_COMMITS_SINCE_TAG = 1
                     GIT_COMMIT_ID = "%s"
@@ -104,7 +104,7 @@ class MainTest(unittest.TestCase, test_utils.CodeAsserts):
                     # DO NOT MODIFY!
                     # ---------------------------------------------------
 
-                    VERSION_STRING = "dev1-%s"
+                    VERSION_STRING = "dev1+rev%s"
                     GIT_TAG_NAME = "master"
                     GIT_COMMITS_SINCE_TAG = 1
                     GIT_COMMIT_ID = "%s"
@@ -129,7 +129,7 @@ class MainTest(unittest.TestCase, test_utils.CodeAsserts):
                     #define MESSMER_GITVERSION_VERSION_H
 
                     namespace version {
-                      constexpr const char *VERSION_STRING = "dev1-%s";
+                      constexpr const char *VERSION_STRING = "dev1+rev%s";
                       constexpr const char *GIT_TAG_NAME = "master";
                       constexpr const unsigned int GIT_COMMITS_SINCE_TAG = 1;
                       constexpr const char *GIT_COMMIT_ID = "%s";
@@ -178,7 +178,7 @@ class MainTest(unittest.TestCase, test_utils.CodeAsserts):
                     # DO NOT MODIFY!
                     # ---------------------------------------------------
 
-                    VERSION_STRING = "1.0.1-dev1-%s"
+                    VERSION_STRING = "1.0.1.dev1+rev%s"
                     GIT_TAG_NAME = "1.0.1"
                     GIT_COMMITS_SINCE_TAG = 1
                     GIT_COMMIT_ID = "%s"

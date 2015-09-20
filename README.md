@@ -61,11 +61,11 @@ The following table shows the basic variables that are always available.
     <td>Built from git tag "v0.8alpha".</td>
   </tr>
   <tr>
-    <td style="white-space: nowrap;">0.8-dev3-4fa254c
+    <td style="white-space: nowrap;">0.8.dev3+rev4fa254c
     <td>Built from 3 commits after git tag "0.8". The current git commit has commit id 4fa254c.
   </tr>
   <tr>
-    <td style="white-space: nowrap;">dev2-4fa254c</td>
+    <td style="white-space: nowrap;">dev2+rev4fa254c</td>
     <td>The repository doesn't have any git tags yet. There are 2 commits since the repository started and the current git commit has commit id 4fa254c.</td>
   </tr>
   <tr>
@@ -73,7 +73,7 @@ The following table shows the basic variables that are always available.
     <td rowspan="2">The suffix "-modified" will be used if there have been modifications since the last commit.</td>
   </tr>
   <tr>
-    <td>0.8-dev3-4fa254c-modified</td>
+    <td>0.8.dev3+rev4fa254c-modified</td>
   </tr>
 
   <tr>

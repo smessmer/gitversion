@@ -35,16 +35,16 @@ class VersionInfoTest(unittest.TestCase):
         self.assertEqual("v1.5-modified", VersionInfo("v1.5", 0, "23fa", True, True).version_string)
 
     def test_version_string_with_no_tag(self):
-        self.assertEqual("dev2-23fa", VersionInfo("develop", 2, "23fa", False, False).version_string)
+        self.assertEqual("dev2+rev23fa", VersionInfo("develop", 2, "23fa", False, False).version_string)
 
     def test_version_string_with_no_tag_modified(self):
-        self.assertEqual("dev2-23fa-modified", VersionInfo("develop", 2, "23fa", False, True).version_string)
+        self.assertEqual("dev2+rev23fa-modified", VersionInfo("develop", 2, "23fa", False, True).version_string)
 
     def test_version_string_with_commits_since_tag(self):
-        self.assertEqual("v1.5-dev2-23fa", VersionInfo("v1.5", 2, "23fa", True, False).version_string)
+        self.assertEqual("v1.5.dev2+rev23fa", VersionInfo("v1.5", 2, "23fa", True, False).version_string)
 
     def test_version_string_with_commits_since_tag_modified(self):
-        self.assertEqual("v1.5-dev2-23fa-modified", VersionInfo("v1.5", 2, "23fa", True, True).version_string)
+        self.assertEqual("v1.5.dev2+rev23fa-modified", VersionInfo("v1.5", 2, "23fa", True, True).version_string)
 
     def test_is_dev_1(self):
         self.assertTrue(VersionInfo("1.0", 1, "23fa", True, False).is_dev)
