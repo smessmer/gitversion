@@ -83,7 +83,7 @@ class GitDir(object):
 
     def _silent_call(self, command):
         with open(os.devnull, 'w') as devnull:
-            return subprocess.check_output(command, stderr=devnull)
+            return subprocess.check_output(command, stderr=devnull).decode()
 
     def create_git_branch(self, branch_name):
         with ChDir(self.dir):

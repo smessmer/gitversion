@@ -1,12 +1,12 @@
-from utils import EqualityMixin
+from gitversionbuilder.utils import EqualityMixin, isstring
 import re
 
 
 class TagInterpretation(EqualityMixin):
     def __init__(self, version_components, version_tag, is_dev_version):
         assert (isinstance(version_components, list))
-        assert (all(isinstance(item, str) for item in version_components))
-        assert (isinstance(version_tag, str))
+        assert (all(isstring(item) for item in version_components))
+        assert (isstring(version_tag))
         self.version_components = version_components
         self.version_tag = version_tag
         self.is_stable = (not is_dev_version) and self.version_tag in ["", "stable", "final"]
@@ -17,9 +17,9 @@ class TagInterpretation(EqualityMixin):
 
 class VersionInfo(EqualityMixin):
     def __init__(self, git_tag_name, git_commits_since_tag, git_commit_id, git_tag_exists, modified_since_commit):
-        assert (isinstance(git_tag_name, str))
+        assert (isstring(git_tag_name))
         assert (isinstance(git_commits_since_tag, int))
-        assert (isinstance(git_commit_id, str))
+        assert (isstring(git_commit_id))
         assert (isinstance(git_tag_exists, bool))
         assert (isinstance(modified_since_commit, bool))
         self.git_tag_name = git_tag_name

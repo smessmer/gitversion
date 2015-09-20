@@ -1,5 +1,4 @@
-import versioninforeader
-import versioninfooutputter
+from gitversionbuilder import versioninforeader, versioninfooutputter
 
 
 def get_version(git_directory):

@@ -1,4 +1,3 @@
-from gitversionbuilder.versioninfo import VersionInfo
 
 
 def to_cpp(version_info):

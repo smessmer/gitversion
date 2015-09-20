@@ -2,7 +2,7 @@ import unittest
 
 from gitversionbuilder import versioninforeader
 from gitversionbuilder.versioninfo import VersionInfo
-from test_utils import GitDir
+from test.test_utils import GitDir
 
 
 class ParseGitVersionTest(unittest.TestCase):

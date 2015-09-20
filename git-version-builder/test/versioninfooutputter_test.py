@@ -1,8 +1,7 @@
 import unittest
 
-from gitversionbuilder import versioninfo
-from gitversionbuilder import versioninfooutputter
-import test_utils
+from gitversionbuilder import versioninfo, versioninfooutputter
+from test import test_utils
 
 
 class VersionInfoOutputterTest(unittest.TestCase, test_utils.CodeAsserts):

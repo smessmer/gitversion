@@ -1,5 +1,5 @@
 import os
-
+import sys
 
 # Use this like
 # > with ChDir(my_dir):
@@ -25,3 +25,14 @@ class EqualityMixin(object):
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+
+IS_PYTHON_2 = sys.version_info[0] == 2
+IS_PYTHON_3 = sys.version_info[0] == 3
+
+
+def isstring(obj):
+    if IS_PYTHON_2:
+        return isinstance(obj, basestring)
+    else:
+        return isinstance(obj, str)
