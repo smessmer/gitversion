@@ -16,5 +16,16 @@ setup(name='git-version',
       py_modules=['Version'],
       packages=['gitversionbuilder'],
       tests_require=['tempdir'],
-      test_suite='test'
+      test_suite='test',
+      classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Programming Language :: Python",
+        "Programming Language :: C++",
+        "Topic :: Software Development :: Build Tools",
+        "Topic :: Software Development :: Code Generators",
+        "Topic :: Software Development :: Version Control"
+      ]
       )
