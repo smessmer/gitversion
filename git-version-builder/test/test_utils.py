@@ -11,6 +11,10 @@ class CodeAsserts(object):
     def assertCodeEqual(self, expected, actual):
         self.assertEqual(self._normalize(expected), self._normalize(actual))
 
+    def read_file(self, filename):
+        with open(filename, 'r') as open_file:
+            return open_file.read()
+
     def _normalize(self, string):
         lines = string.splitlines()
         normalized_lines = map(self._normalize_line, lines)
