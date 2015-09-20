@@ -73,6 +73,18 @@ class VersionInfoTest(unittest.TestCase):
         self.assertEqual(TagInterpretation(["1", "0"], "alpha", False),
                          VersionInfo("1.0alpha", 0, "23fa", True, False).interpret_tag_name())
 
+    def test_interpret_valid_tag_name_alpha_number(self):
+        self.assertEqual(TagInterpretation(["1", "0"], "alpha2", False),
+                         VersionInfo("1.0alpha2", 0, "23fa", True, False).interpret_tag_name())
+
+    def test_interpret_valid_tag_name_beta(self):
+        self.assertEqual(TagInterpretation(["1", "0"], "beta", False),
+                         VersionInfo("1.0beta", 0, "23fa", True, False).interpret_tag_name())
+
+    def test_interpret_valid_tag_name_beta_number(self):
+        self.assertEqual(TagInterpretation(["1", "0"], "beta3", False),
+                         VersionInfo("1.0beta3", 0, "23fa", True, False).interpret_tag_name())
+
     def test_interpret_valid_tag_name_with_dash(self):
         self.assertEqual(TagInterpretation(["1", "02", "3"], "beta", False),
                          VersionInfo("1.02.3-beta", 0, "23fa", True, False).interpret_tag_name())
@@ -104,6 +116,10 @@ class VersionInfoTest(unittest.TestCase):
     def test_interpret_valid_tag_name_RC2(self):
         self.assertEqual(TagInterpretation(["0", "8"], "RC2", False),
                          VersionInfo("0.8-RC2", 0, "23fa", True, False).interpret_tag_name())
+
+    def test_interpret_valid_tag_name_pre2(self):
+        self.assertEqual(TagInterpretation(["0", "8"], "pre2", False),
+                         VersionInfo("0.8-pre2", 0, "23fa", True, False).interpret_tag_name())
 
     def test_interpret_valid_tag_name_of_dev_version_1(self):
         self.assertEqual(TagInterpretation(["0", "8"], "", True),
