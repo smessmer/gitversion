@@ -11,7 +11,8 @@ set(DIR_OF_GITVERSION_TOOL ${CMAKE_CURRENT_LIST_DIR})
 function(GIT_VERSION_INIT)
   FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion")
   FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion")
-  EXECUTE_PROCESS(COMMAND /usr/bin/env python "${DIR_OF_GITVERSION_TOOL}/git-version-builder" --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h"
+  SET(ENV{PYTHONPATH} "${DIR_OF_GITVERSION_TOOL}/src")
+  EXECUTE_PROCESS(COMMAND /usr/bin/env python -m gitversionbuilder --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h"
 		  RESULT_VARIABLE result)
   IF(NOT ${result} EQUAL 0)
     MESSAGE(FATAL_ERROR "Error running messmer/git-version tool. Return code is: ${result}")
