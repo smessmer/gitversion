@@ -17,6 +17,11 @@ setup(name='git-version',
       packages=['gitversionbuilder'],
       tests_require=['tempdir'],
       test_suite='test',
+      entry_points = {
+        'console_scripts': [
+          "git-version = __main__:run_main"
+        ]
+      },
       classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",

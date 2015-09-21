@@ -10,7 +10,7 @@ except ImportError:
     Version = __import__("DummyVersion")
 
 
-if __name__ == '__main__':
+def run_main():
     parser = argparse.ArgumentParser(description="Create a source file containing git version information.")
     parser.add_argument('--version', action='version', version=Version.VERSION_STRING)
     parser.add_argument('--lang', choices=['cpp', 'python'], required=True)
@@ -21,3 +21,7 @@ if __name__ == '__main__':
     print("Creating git version information from %s" % args.dir)
 
     main.create_version_file(git_directory=args.dir, output_file=args.file, lang=args.lang)
+
+
+if __name__ == '__main__':
+    run_main()
