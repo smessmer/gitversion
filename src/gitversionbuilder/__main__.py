@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
 import argparse
-
+import importlib
 from gitversionbuilder import main
 
+
 try:
-    Version = __import__("Version")
+    Version = importlib.import_module(".Version", package="gitversionbuilder")
 except ImportError:
-    Version = __import__("DummyVersion")
+    Version = importlib.import_module(".DummyVersion", package="gitversionbuilder")
 
 
 def run_main():

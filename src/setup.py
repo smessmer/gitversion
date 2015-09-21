@@ -3,7 +3,7 @@
 from setuptools import setup
 from gitversionbuilder import main
 
-main.create_version_file(git_directory=".", output_file="Version.py", lang="python")
+main.create_version_file(git_directory=".", output_file="gitversionbuilder/Version.py", lang="python")
 version = main.get_version(git_directory=".")
 
 setup(name='git-version',
@@ -19,7 +19,7 @@ setup(name='git-version',
       test_suite='test',
       entry_points = {
         'console_scripts': [
-          "git-version = __main__:run_main"
+          "git-version = gitversionbuilder.__main__:run_main"
         ]
       },
       classifiers=[
