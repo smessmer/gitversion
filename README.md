@@ -29,19 +29,33 @@ That's it already. Have fun :)
 Use manually (C++ and Python)
 ================
 
-There is a python script in the git-version-builder directory.
-To generate a version.h file containing C++ version information for the git repository located in myrepositorydir, call
+Install from PyPi
+----------------
 
-    python git-version-builder --dir myrepositorydir --lang cpp version.h
+To install the tool:
 
-To generate a python module with the information, call
+    pip install git-version
 
-    python git-version-builder --dir myrepositorydir --lang python version.py
+To generate a version.h file containing C++ version information for the git repository located in myrepositorydir:
 
+    git-version --dir myrepositorydir --lang cpp version.h
+
+Or to generate a module with version information for python:
+
+    git-version --dir myrepositorydir --lang python version.py
+
+
+Run script from source tree
+-------------------------
+
+If you don't want to use PyPi, you can run the script directly from the source tree.
+Clone this repository and go to the src directory (or alternatively add the src directory to the PYTHONPATH environment variable), then call for example
+
+    python -m gitversionbuilder --dir myrepositorydir --lang cpp version.h
+    
 If you want to build a distribution of the package to use it somewhere else, you can use the standard python [setuptools](https://pythonhosted.org/setuptools/).
 A corresponding setup.py is available in the directory.
 
-The script is also available on PyPi as [git-version](https://pypi.python.org/pypi/git-version).
 
 Available Information
 =================
