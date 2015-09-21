@@ -38,11 +38,11 @@ To install the tool:
 
 To generate a version.h file containing C++ version information for the git repository located in myrepositorydir:
 
-    git-version --dir myrepositorydir --lang cpp version.h
+    python -m gitversionbuilder --dir myrepositorydir --lang cpp version.h
 
 Or to generate a module with version information for python:
 
-    git-version --dir myrepositorydir --lang python version.py
+    python -m gitversionbuilder --dir myrepositorydir --lang python version.py
 
 
 Run script from source tree
