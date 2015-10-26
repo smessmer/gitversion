@@ -18,4 +18,10 @@ function(GIT_VERSION_INIT)
     MESSAGE(FATAL_ERROR "Error running messmer/git-version tool. Return code is: ${result}")
   ENDIF()
   TARGET_INCLUDE_DIRECTORIES(${BII_BLOCK_TARGET} INTERFACE "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion")
+
+  # Load version string and write it to a cmake variable so it can be accessed from cmake.
+  FILE(READ "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h" VERSION_H_FILE_CONTENT)
+  STRING(REGEX REPLACE ".*VERSION_STRING = \"([^\"]*)\".*" "\\1" VERSION_STRING "${VERSION_H_FILE_CONTENT}")
+  MESSAGE(STATUS "Version from git: ${VERSION_STRING}")
+  SET(GITVERSION_VERSION_STRING "${VERSION_STRING}" PARENT_SCOPE)
 endfunction(ADD_GIT_VERSION)
