@@ -62,9 +62,10 @@ def _there_are_untracked_files_in_cwd():
 
 
 def _there_are_modified_files_in_cwd():
-    return_code = subprocess.call(["git", "diff-index", "--quiet", "HEAD"])
-    assert (return_code == 0 or return_code == 1)
-    return return_code == 1
+    # Workaround for a bug where - when we run "chmod 755 file" on a file that already has 755 and is committed to git as such, the next run of "it diff-index" will show it as a difference.
+    # This is only the case for the first run, so we run it once to not run into this bug.
+    subprocess.call(["git", "diff-index", "--exit-code", "--quiet", "HEAD"])
+    return (0 != subprocess.call(["git", "diff-index", "--exit-code", "--quiet", "HEAD"])) or (0 != subprocess.call(["git", "diff-index", "--cached", "--exit-code", "--quiet", "HEAD"]))
 
 
 def _cwd_is_not_empty():
