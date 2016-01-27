@@ -62,10 +62,10 @@ def _there_are_untracked_files_in_cwd():
 
 
 def _there_are_modified_files_in_cwd():
-    # Workaround for a bug where - when we run "chmod 755 file" on a file that already has 755 and is committed to git as such, the next run of "it diff-index" will show it as a difference.
-    # This is only the case for the first run, so we run it once to not run into this bug.
-    subprocess.call(["git", "diff-index", "--exit-code", "--quiet", "HEAD"])
-    return (0 != subprocess.call(["git", "diff-index", "--exit-code", "--quiet", "HEAD"])) or (0 != subprocess.call(["git", "diff-index", "--cached", "--exit-code", "--quiet", "HEAD"]))
+    # Usually we'd like to use "git diff-index" here.
+    # But there seems to be a bug that when we run "chmod 755 file" on a file that already has 755 and is committed to git as such, the next run of "git diff-index" will show it as a difference.
+    # "git diff" seams to work
+    return (0 != subprocess.call(["git", "diff", "--exit-code", "--quiet", "HEAD"])) or (0 != subprocess.call(["git", "diff", "--cached", "--exit-code", "--quiet", "HEAD"]))
 
 
 def _cwd_is_not_empty():
