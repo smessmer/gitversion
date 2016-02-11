@@ -4,16 +4,16 @@ A simple use case scenario is to output this version information when the applic
 
 This repository contains
   - A python script to generate C++ headers or python modules with this version information. You can add the python script to your build process to autogenerate the files on each build.
-  - A biicode block which can be directly included into biicode C++ projects. It will then automatically be run on each build and you only have to #include the generated file.
+  - A CMake script which can be directly included into a CMake projects. It will then automatically be run on each build and you only have to #include the generated file.
 
 
-Use with biicode (only C++)
+Use with cmake (only C++)
 ================
 
-Add the following to your CMakeLists.txt
+Copy this repository into a subfolder of your project and include the cmake.cmake file in your CMakeLists.txt
 
-    INCLUDE(messmer/gitversion/cmake)
-    GIT_VERSION_INIT()
+    INCLUDE(gitversion/cmake.cmake)
+    TARGET_GIT_VERSION_INIT(buildtarget)
 
 Then, you can write in your source file:
 
@@ -159,4 +159,5 @@ If you use a version scheme supported by this, we will provide the following add
     <td>The version tag ("alpha", "beta", "rc4", "M2", "stable", "final", "", ...) that follows after the version number. If the version tag is separated by a dash, the dash is not included.</td>
   </tr>
 </table>
+
 
