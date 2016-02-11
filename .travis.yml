@@ -1,5 +1,4 @@
 language: python
-sudo: required
 python:
   - "2.7"
   - "3.2"
@@ -8,21 +7,6 @@ python:
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
-before_script:
-- wget https://raw.githubusercontent.com/smessmer/travis-utils/master/setup_biicode_project.sh
-  && chmod +x setup_biicode_project.sh
-  && ./setup_biicode_project.sh
-  && rm setup_biicode_project.sh
 script:
 - cd src && python setup.py test
-after_success:
-- bii user ${BII_USERNAME} -p ${BII_PASSWORD}
-- bii publish
-#deploy:
-#  provider: biicode
-#  user: ${BII_USERNAME}
-#  password:
-#    secure: ${BII_PASSWORD}
-#  on:
-#    branch: develop
 

@@ -59,8 +59,3 @@ target/
 .idea
 MANIFEST
 Version.py
-
-
-# Biicode
-bii
-bin
