@@ -48,3 +48,25 @@ function(GET_GIT_VERSION OUTPUT_VARIABLE)
   _CREATE_GIT_VERSION_FILE()
   _SET_GITVERSION_CMAKE_VARIABLE(${OUTPUT_VARIABLE})
 endfunction(GET_GIT_VERSION OUTPUT_VARIABLE)
+
+######################################################
+# Add git version information
+# Uses:
+#   GIT_VERSION_INFO(buildtarget)
+# Then, you can write in your source file:
+#   #include <gitversion/version.h>
+#   cout << gitversion::VERSION.toString() << endl;
+######################################################
+function(GIT_VERSION_INFO TARGET_)
+  FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion")
+  FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion")
+
+  IF(NOT TARGET ${PROJECT_NAME}_VERSION_INFO)
+      add_custom_target( ${PROJECT_NAME}_VERSION_INFO
+          COMMAND  /usr/bin/env PYTHONPATH=${DIR_OF_GITVERSION_TOOL}/src:"$PYTHONPATH" python -m gitversionbuilder --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h"
+          BYPRODUCTS "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h"
+          )
+  ENDIF()
+  TARGET_INCLUDE_DIRECTORIES(${TARGET_} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion")
+  ADD_DEPENDENCIES(${TARGET_} ${PROJECT_NAME}_VERSION_INFO)
+endfunction(GIT_VERSION_INFO)
