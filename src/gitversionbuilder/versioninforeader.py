@@ -39,7 +39,7 @@ def from_git(git_directory):
 
 def _total_number_of_commits_in_cwd():
     try:
-        with open('/dev/null', 'w') as devnull:
+        with open(os.devnull, 'w') as devnull:
             return int(subprocess.check_output(["git", "rev-list", "HEAD", "--count"], stderr=devnull))
     except subprocess.CalledProcessError:
         return 0
