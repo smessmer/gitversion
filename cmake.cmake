@@ -1,16 +1,25 @@
+find_package (Python COMPONENTS Interpreter REQUIRED )
 set(DIR_OF_GITVERSION_TOOL "${CMAKE_CURRENT_LIST_DIR}" CACHE INTERNAL "DIR_OF_GITVERSION_TOOL")
 
 function (_CREATE_GIT_VERSION_FILE)
   FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion")
   FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion")
 
-  IF(DEFINED ENV{PYTHONPATH})
-      SET(ENV{PYTHONPATH} "${DIR_OF_GITVERSION_TOOL}/src:ENV{PYTHONPATH}")
-  ELSE()
-      SET(ENV{PYTHONPATH} "${DIR_OF_GITVERSION_TOOL}/src")
-  ENDIF()
-  EXECUTE_PROCESS(COMMAND /usr/bin/env python -m gitversionbuilder --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h"
-		  RESULT_VARIABLE result)
+  if(UNIX)
+	  IF(DEFINED ENV{PYTHONPATH})
+		  SET(ENV{PYTHONPATH} "${DIR_OF_GITVERSION_TOOL}/src:ENV{PYTHONPATH}")
+	  ELSE()
+		  SET(ENV{PYTHONPATH} "${DIR_OF_GITVERSION_TOOL}/src")
+	  ENDIF()
+	  EXECUTE_PROCESS(COMMAND /usr/bin/env ${Python_EXECUTABLE} -m gitversionbuilder --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/gitversion/gitversion/version.h"
+			  WORKING_DIRECTORY "${DIR_OF_GITVERSION_TOOL}/src"
+			  RESULT_VARIABLE result)
+  elseif(WIN32)
+	  EXECUTE_PROCESS(COMMAND "${Python_EXECUTABLE}"  -m gitversionbuilder --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/gitversion/gitversion/version.h"
+	  WORKING_DIRECTORY "${DIR_OF_GITVERSION_TOOL}/src" 
+	  RESULT_VARIABLE result)
+  endif()
+  
   IF(NOT ${result} EQUAL 0)
     MESSAGE(FATAL_ERROR "Error running messmer/git-version tool. Return code is: ${result}")
   ENDIF()
