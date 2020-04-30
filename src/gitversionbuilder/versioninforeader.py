@@ -11,7 +11,12 @@ def from_git(git_directory):
             with open(os.devnull, 'w') as devnull:
                 version_string = subprocess.check_output(["git", "describe", "--tags", "--long", "--abbrev=7"],
                                                          stderr=devnull).decode()
-            return _parse_git_version(version_string, _is_modified_since_commit_in_cwd())
+                version = _parse_git_version(version_string, _is_modified_since_commit_in_cwd())
+
+                version.last_commit_data = subprocess.check_output(["git", "log", "--date=iso", "-1", "--format=%cd"],
+                                                            stderr=devnull).decode().strip()
+
+            return version
         except subprocess.CalledProcessError:
             # If there is no git tag, then the commits_since_tag returned by git is wrong
             # (because they consider the branch HEAD the tag and there are 0 commits since the branch head).
@@ -91,7 +96,7 @@ class VersionParseError(Exception):
 
 def _parse_git_version(git_version_string, modified_since_commit):
     assert(isstring(git_version_string))
-    matched = re.match("^([a-zA-Z0-9\.\-/]+)-([0-9]+)-g([0-9a-f]+)$", git_version_string)
+    matched = re.match("^([a-zA-Z0-9\.\-\/_]+)-([0-9]+)-g([0-9a-f]+)$", git_version_string)
     if matched:
         tag = matched.group(1)
         commits_since_tag = int(matched.group(2))
