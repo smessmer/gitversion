@@ -47,20 +47,17 @@ class _CppFormatter(_Formatter):
 // DO NOT MODIFY!
 // ---------------------------------------------------
 
-#pragma once
 #ifndef MESSMER_GITVERSION_VERSION_H
 #define MESSMER_GITVERSION_VERSION_H
 
-namespace version {
-  constexpr const char *VERSION_STRING = "%s";
-  constexpr const char *GIT_TAG_NAME = "%s";
-  constexpr const unsigned int GIT_COMMITS_SINCE_TAG = %d;
-  constexpr const char *GIT_COMMIT_ID = "%s";
-  constexpr const char *GIT_LAST_COMMIT_DATE = "%s";
-  constexpr bool MODIFIED_SINCE_COMMIT = %s;
-  constexpr bool IS_DEV_VERSION = %s;
+#define VERSION_STRING "%s"
+#define GIT_TAG_NAME "%s"
+#define GIT_COMMITS_SINCE_TAG %d
+#define GIT_COMMIT_ID "%s"
+#define GIT_LAST_COMMIT_DATE "%s"
+#define MODIFIED_SINCE_COMMIT %s
+#define IS_DEV_VERSION %s
 %s
-}
 
 #endif
 """ % (version_info.version_string, version_info.git_tag_name, version_info.git_commits_since_tag,

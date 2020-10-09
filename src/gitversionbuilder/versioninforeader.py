@@ -1,6 +1,7 @@
 import subprocess
 import os
 import re
+import tempfile
 from gitversionbuilder import versioninfo, utils
 from gitversionbuilder.utils import isstring
 
@@ -26,7 +27,7 @@ def from_git(git_directory):
                 # There is no git tag, but there are commits
                 branch_name = _branch_name_in_cwd()
                 commit_id = _commit_id_in_cwd()
-                return versioninfo.VersionInfo(git_tag_name=branch_name,
+                version = versioninfo.VersionInfo(git_tag_name=branch_name,
                                                git_commits_since_tag=total_num_commits,
                                                git_commit_id=commit_id,
                                                git_tag_exists=False,
@@ -35,16 +36,20 @@ def from_git(git_directory):
                 # There are no commits yet
                 branch_name = "HEAD"
                 commit_id = "0"
-                return versioninfo.VersionInfo(git_tag_name=branch_name,
+                version = versioninfo.VersionInfo(git_tag_name=branch_name,
                                                git_commits_since_tag=total_num_commits,
                                                git_commit_id=commit_id,
                                                git_tag_exists=False,
                                                modified_since_commit=_cwd_is_not_empty())
+            with open(os.devnull, 'w') as devnull:
+                version.last_commit_data = subprocess.check_output(["git", "log", "--date=iso", "-1", "--format=%cd"],
+                                                               stderr=devnull).decode().strip()
+            return version
 
 
 def _total_number_of_commits_in_cwd():
     try:
-        with open('/dev/null', 'w') as devnull:
+        with tempfile.TemporaryFile() as devnull:
             return int(subprocess.check_output(["git", "rev-list", "HEAD", "--count"], stderr=devnull))
     except subprocess.CalledProcessError:
         return 0
