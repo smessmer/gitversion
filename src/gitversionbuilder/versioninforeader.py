@@ -16,7 +16,7 @@ def from_git(git_directory):
 
                 version.last_commit_data = subprocess.check_output(["git", "log", "--date=iso", "-1", "--format=%cd"],
                                                             stderr=devnull).decode().strip()
-
+                version.branch_name = _branch_name_in_cwd()
             return version
         except subprocess.CalledProcessError:
             # If there is no git tag, then the commits_since_tag returned by git is wrong
