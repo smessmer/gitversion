@@ -16,12 +16,13 @@ def run_main():
     parser.add_argument('--version', action='version', version=Version.VERSION_STRING)
     parser.add_argument('--lang', choices=['cpp', 'python'], required=True)
     parser.add_argument('--dir', default='.')
+    parser.add_argument('--buildnum', default='1')
     parser.add_argument('file')
     args = parser.parse_args()
 
     print("Creating git version information from %s" % args.dir)
 
-    main.create_version_file(git_directory=args.dir, output_file=args.file, lang=args.lang)
+    main.create_version_file(git_directory=args.dir, output_file=args.file, lang=args.lang, buildnum=args.buildnum)
 
 
 if __name__ == '__main__':

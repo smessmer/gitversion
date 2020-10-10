@@ -32,7 +32,7 @@ class _Formatter(object):
             return ""
         else:
             formatted_version_components = self.version_components_formatter(tag_interpretation.version_components)
-            return self.tag_interpretation_formatter(tag_interpretation, formatted_version_components)
+            return self.tag_interpretation_formatter(tag_interpretation, formatted_version_components, version_info.buildnum)
 
 
 # ----------------------------------------
@@ -47,23 +47,28 @@ class _CppFormatter(_Formatter):
 // DO NOT MODIFY!
 // ---------------------------------------------------
 
-#pragma once
 #ifndef MESSMER_GITVERSION_VERSION_H
 #define MESSMER_GITVERSION_VERSION_H
 
-namespace version {
-  constexpr const char *VERSION_STRING = "%s";
-  constexpr const char *GIT_TAG_NAME = "%s";
-  constexpr const unsigned int GIT_COMMITS_SINCE_TAG = %d;
-  constexpr const char *GIT_COMMIT_ID = "%s";
-  constexpr bool MODIFIED_SINCE_COMMIT = %s;
-  constexpr bool IS_DEV_VERSION = %s;
+#define VERSION_STRING "%s"
+#define GIT_TAG_NAME "%s"
+#define GIT_BRANCH_NAME "%s"
+#define GIT_COMMITS_SINCE_TAG "%d"
+#define GIT_COMMIT_ID "%s"
+#define GIT_LAST_COMMIT_DATE "%s"
+#define MODIFIED_SINCE_COMMIT %s
+#define IS_DEV_VERSION %s
 %s
-}
 
 #endif
-""" % (version_info.version_string, version_info.git_tag_name, version_info.git_commits_since_tag,
-       version_info.git_commit_id, str(version_info.modified_since_commit).lower(), str(version_info.is_dev).lower(),
+""" % (version_info.version_string,
+       version_info.git_tag_name,
+       version_info.branch_name,
+       version_info.git_commits_since_tag,
+       version_info.git_commit_id,
+       version_info.last_commit_data,
+       str(version_info.modified_since_commit).lower(),
+       str(version_info.is_dev).lower(),
        other_variables)
 
     def is_stable_formatter(self, is_stable):
@@ -71,11 +76,20 @@ namespace version {
   constexpr bool IS_STABLE_VERSION = %s;
 """ % str(is_stable).lower()
 
-    def tag_interpretation_formatter(self, tag_interpretation, version_components):
+    def tag_interpretation_formatter(self, tag_interpretation, version_components, buildnum):
         return """
   constexpr const char *VERSION_COMPONENTS[] = %s;
   constexpr const char *VERSION_TAG = "%s";
-""" % (version_components, tag_interpretation.version_tag)
+  #define VER_MAJOR %s
+  #define VER_MINOR %s
+  #define VER_BUG_FIX %s
+  #define VER_BUILD_NUM %s
+""" % (version_components,
+       tag_interpretation.version_tag,
+       tag_interpretation.version_components[0],
+       tag_interpretation.version_components[1],
+       tag_interpretation.version_components[2],
+       buildnum)
 
     def version_components_formatter(self, version_components):
         return "{\"" + "\", \"".join(version_components) + "\"}"
@@ -108,7 +122,7 @@ IS_DEV_VERSION = %s
 IS_STABLE_VERSION = %s
 """ % is_stable
 
-    def tag_interpretation_formatter(self, tag_interpretation, version_components):
+    def tag_interpretation_formatter(self, tag_interpretation, version_components, buildnum=1):
         return """
 VERSION_COMPONENTS = %s
 VERSION_TAG = "%s"

@@ -1,6 +1,7 @@
 import subprocess
 import os
 import re
+import tempfile
 from gitversionbuilder import versioninfo, utils
 from gitversionbuilder.utils import isstring
 
@@ -11,7 +12,12 @@ def from_git(git_directory):
             with open(os.devnull, 'w') as devnull:
                 version_string = subprocess.check_output(["git", "describe", "--tags", "--long", "--abbrev=7"],
                                                          stderr=devnull).decode()
-            return _parse_git_version(version_string, _is_modified_since_commit_in_cwd())
+                version = _parse_git_version(version_string, _is_modified_since_commit_in_cwd())
+
+                version.last_commit_data = subprocess.check_output(["git", "log", "--date=iso", "-1", "--format=%cd"],
+                                                            stderr=devnull).decode().strip()
+                version.branch_name = _branch_name_in_cwd()
+            return version
         except subprocess.CalledProcessError:
             # If there is no git tag, then the commits_since_tag returned by git is wrong
             # (because they consider the branch HEAD the tag and there are 0 commits since the branch head).
@@ -21,7 +27,7 @@ def from_git(git_directory):
                 # There is no git tag, but there are commits
                 branch_name = _branch_name_in_cwd()
                 commit_id = _commit_id_in_cwd()
-                return versioninfo.VersionInfo(git_tag_name=branch_name,
+                version = versioninfo.VersionInfo(git_tag_name=branch_name,
                                                git_commits_since_tag=total_num_commits,
                                                git_commit_id=commit_id,
                                                git_tag_exists=False,
@@ -30,16 +36,20 @@ def from_git(git_directory):
                 # There are no commits yet
                 branch_name = "HEAD"
                 commit_id = "0"
-                return versioninfo.VersionInfo(git_tag_name=branch_name,
+                version = versioninfo.VersionInfo(git_tag_name=branch_name,
                                                git_commits_since_tag=total_num_commits,
                                                git_commit_id=commit_id,
                                                git_tag_exists=False,
                                                modified_since_commit=_cwd_is_not_empty())
+            with open(os.devnull, 'w') as devnull:
+                version.last_commit_data = subprocess.check_output(["git", "log", "--date=iso", "-1", "--format=%cd"],
+                                                               stderr=devnull).decode().strip()
+            return version
 
 
 def _total_number_of_commits_in_cwd():
     try:
-        with open('/dev/null', 'w') as devnull:
+        with tempfile.TemporaryFile() as devnull:
             return int(subprocess.check_output(["git", "rev-list", "HEAD", "--count"], stderr=devnull))
     except subprocess.CalledProcessError:
         return 0
@@ -91,7 +101,7 @@ class VersionParseError(Exception):
 
 def _parse_git_version(git_version_string, modified_since_commit):
     assert(isstring(git_version_string))
-    matched = re.match("^([a-zA-Z0-9\.\-/]+)-([0-9]+)-g([0-9a-f]+)$", git_version_string)
+    matched = re.match("^([a-zA-Z0-9\.\-\/_]+)-([0-9]+)-g([0-9a-f]+)$", git_version_string)
     if matched:
         tag = matched.group(1)
         commits_since_tag = int(matched.group(2))
