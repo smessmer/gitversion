@@ -9,11 +9,21 @@ function (_CREATE_GIT_VERSION_FILE)
   ELSE()
       SET(ENV{PYTHONPATH} "${DIR_OF_GITVERSION_TOOL}/src")
   ENDIF()
-  EXECUTE_PROCESS(COMMAND /usr/bin/env python -m gitversionbuilder --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h"
-		  RESULT_VARIABLE result)
+ EXECUTE_PROCESS(COMMAND /usr/bin/env python -m gitversionbuilder --lang cpp --dir "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.x"
+          RESULT_VARIABLE result)
   IF(NOT ${result} EQUAL 0)
     MESSAGE(FATAL_ERROR "Error running messmer/git-version tool. Return code is: ${result}")
   ENDIF()
+    set(FILEX "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.x")
+    set(FILEH "${CMAKE_CURRENT_BINARY_DIR}/messmer_gitversion/gitversion/version.h")
+    if(EXISTS "${FILEH}")
+        execute_process( COMMAND ${CMAKE_COMMAND} -E compare_files "${FILEX}" "${FILEH}" RESULT_VARIABLE compare_result)
+        if(compare_result EQUAL 1) #Not identical
+            execute_process( COMMAND mv "${FILEX}" "${FILEH}")
+        endif()
+    else()
+            execute_process( COMMAND mv "${FILEX}" "${FILEH}")
+    endif()
 endfunction (_CREATE_GIT_VERSION_FILE)
 
 function(_SET_GITVERSION_CMAKE_VARIABLE OUTPUT_VARIABLE)
